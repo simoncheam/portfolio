@@ -1,4 +1,3 @@
-```markdown
 # Portfolio Website
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
@@ -27,4 +26,3 @@ This project showcases my portfolio. It includes my work, skills, and contact in
 Simon Cheam - [LinkedIn](https://www.linkedin.com/in/simoncheam/) - [GitHub](https://github.com/simoncheam)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-```
