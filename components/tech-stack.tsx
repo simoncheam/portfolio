@@ -7,7 +7,6 @@ import {
   SiReact,
   SiGit,
   SiMysql,
-  SiDocker,
   SiAmazon,
   SiNextdotjs,
 } from 'react-icons/si';

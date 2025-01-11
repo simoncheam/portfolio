@@ -11,7 +11,7 @@ import { DialogTitle } from '@radix-ui/react-dialog';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  // const [mounted, setMounted] = useState(false);
 
   const navItems = [
     { href: '#about', label: 'About' },
@@ -21,7 +21,7 @@ export function Navbar() {
   ];
 
   useEffect(() => {
-    var style2 = [
+    const style2 = [
       'background: linear-gradient(#E36C4E, #19272f)',
       'border: 1px solid #E36C4E',
       'color: white',
@@ -40,7 +40,7 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    setMounted(true);
+    // setMounted(true);
 
     Promise.all([
       fetch('https://covidtrackerdashboard.herokuapp.com/status', {
