@@ -7,8 +7,9 @@ import { Button } from './ui/button';
 
 const Hero = () => {
   const colors = ['#F59E0B', '#10B981', '#3B82F6'];
+  // const colors = ['bg-yellow-500', 'bg-green-500', 'bg-blue-500'];
   return (
-    <div className='flex flex-col items-center justify-center min-h-[calc(100vh-3.5rem)] w-full max-w-3xl mx-auto text-center px-4'>
+    <div className='flex flex-col items-center justify-center min-h-[60vh] w-full max-w-3xl mx-auto text-center px-4'>
       <div className='mb-8 relative w-48 h-48 sm:w-56 sm:h-56'>
         <Image
           src='/images/avatar.png'
@@ -33,12 +34,14 @@ const Hero = () => {
           </RainbowHighlight> */}
         </div>
       </RoughNotationGroup>
-      <p className='mb-8 max-w-2xl text-sm sm:text-base'>
+      {/* //TODO: update*/}
+      {/* <p className='mb-8 max-w-2xl text-sm sm:text-base'>
         Passionate about creating efficient, scalable solutions and bringing ideas to life through code.
-      </p>
+      </p> */}
+
       <Button
-        size='lg'
-        asChild>
+        asChild
+        className={`px-8 py-4 text-lg font-semibold rounded-lg mb-4 bg-yellow-500 hover:bg-yellow-600 text-black`}>
         <a href='#contact'>Get in Touch</a>
       </Button>
     </div>

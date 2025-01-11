@@ -6,6 +6,8 @@ import { Github, Linkedin, Menu, X } from 'lucide-react';
 import { ThemeToggle } from './theme-toggle';
 import { Button } from './ui/button';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { DialogTitle } from '@radix-ui/react-dialog';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,6 +52,9 @@ export function Navbar() {
       fetch('https://react-cocktailsapp.netlify.app', {
         mode: 'no-cors',
       }),
+      fetch('https://next-bnb.vercel.app', {
+        mode: 'no-cors',
+      }),
       fetch('https://nextjs-gpt-tour-guide.vercel.app', {
         mode: 'no-cors',
       }),
@@ -82,6 +87,10 @@ export function Navbar() {
               <SheetContent
                 side='left'
                 className='w-[240px] sm:w-[300px]'>
+                <VisuallyHidden>
+                  <DialogTitle>Mobile Navigation Menu</DialogTitle>
+                </VisuallyHidden>
+
                 <nav className='flex flex-col gap-4'>
                   {navItems.map((item) => (
                     <Link
@@ -112,7 +121,7 @@ export function Navbar() {
             <Link
               href='/'
               className='flex items-center'>
-              <span className='font-bold'>SC</span>
+              {/* <span className='font-bold'>Simon Cheam</span> */}
             </Link>
           </div>
 

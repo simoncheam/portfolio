@@ -27,7 +27,7 @@ const About = () => {
   return (
     <section
       id='about'
-      className='py-16 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
+      className='py-4 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
       <div className='space-y-6'>
         <h2 className='text-3xl sm:text-4xl font-bold mb-8'>Hi there 👋</h2>
         <p className='text-xl sm:text-2xl font-medium'>

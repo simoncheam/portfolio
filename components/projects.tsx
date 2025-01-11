@@ -8,7 +8,7 @@ const projects = [
     imgUrl: '/images/nextbnb.png',
     techStack: ['Next.js', 'TailwindCSS', 'Shadcn/UI', 'Supabase', 'Clerk', 'Zod'],
     githubUrl: 'https://github.com/simoncheam/next-bnb',
-    liveUrl: 'https://next-bnb-simoncheam.vercel.app/',
+    liveUrl: 'https://next-bnb.vercel.app',
   },
   {
     title: 'GPTGenius: AI Tour Guide Assistant',
