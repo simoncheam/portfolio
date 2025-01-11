@@ -16,7 +16,7 @@ const Contact = () => {
       <h2 className='text-3xl sm:text-4xl font-bold mb-8 text-center'>Get in Touch</h2>
       <div className='flex flex-col items-center gap-6'>
         <p className='text-lg text-center text-muted-foreground mb-4'>
-          If you think we'd be a good fit (like your favorite pair of jeans 👖), let's chat.
+          If you think we'd be a good fit (like your favorite pair of jeans 👖), Let&apos;s chat.
         </p>
         <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
           <Button
