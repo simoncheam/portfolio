@@ -19,7 +19,8 @@ export function ProjectCard({ title, description, imgUrl, techStack, githubUrl, 
         <Image
           src={imgUrl}
           alt={title}
-          fill
+          width={500}
+          height={500}
           className='object-cover transition-transform duration-700 group-hover:scale-110'
         />
         <div className='absolute bottom-4 left-4 text-white/90 font-mono text-xl'>

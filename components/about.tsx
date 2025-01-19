@@ -16,7 +16,7 @@ const About = () => {
     },
     {
       emoji: '👨‍💼',
-      text: 'Over 6+ years of product design and project engineering experience',
+      text: 'Over 10+ years of product development and project engineering experience',
     },
     {
       emoji: '🛠️',
@@ -35,8 +35,8 @@ const About = () => {
           massive value to everyone involved on the project.
         </p>
         <p className='text-lg text-muted-foreground'>
-          As a Full Stack Developer with extensive experience in React, Next.js, and cloud services, I excel at rapidly
-          solving technical challenges and delivering business value.
+          As a Full Stack Developer with experience in React, Next.js, and cloud services, I excel at rapidly solving
+          technical challenges and delivering business value.
         </p>
 
         <div className='mt-8'>

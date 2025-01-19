@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import { RainbowHighlight } from './rainbow-highlight';
 import { RoughNotationGroup } from 'react-rough-notation';
@@ -12,9 +10,11 @@ const Hero = () => {
     <div className='flex flex-col items-center justify-center min-h-[60vh] w-full max-w-3xl mx-auto text-center px-4'>
       <div className='mb-8 relative w-48 h-48 sm:w-56 sm:h-56'>
         <Image
-          src='/images/avatar.png'
+          src='/images/avatar.webp'
           alt='Simon Cheam'
-          fill
+          width={224}
+          height={224}
+          priority
           className='rounded-full border-4 border-gray-300 dark:border-gray-700 object-cover'
         />
       </div>
