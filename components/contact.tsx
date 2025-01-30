@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from './ui/button';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Calendar, Github, Linkedin, Mail } from 'lucide-react';
 
 const Contact = () => {
   const handleCopyEmail = () => {
@@ -18,6 +18,23 @@ const Contact = () => {
         <p className='text-lg text-center text-muted-foreground mb-4'>
           If you think we&apos;d be a good fit (like your favorite pair of jeans 👖), Let&apos;s chat.
         </p>
+        <Button
+          asChild
+          size="lg"
+          className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg"
+        >
+          <a href="https://cal.com/simoncheam/quickchat" target="_blank" rel="noopener noreferrer">
+            <Calendar className="mr-2 h-5 w-5" />
+            Let&apos;s Chat!
+          </a>
+        </Button>
+        <div className="w-full flex items-center gap-4 my-4">
+          <div className="h-px flex-1 bg-border" />
+          <span className="text-muted-foreground text-sm">or</span>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+
+
         <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
           <Button
             onClick={handleCopyEmail}

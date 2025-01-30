@@ -8,11 +8,11 @@ const About = () => {
     },
     {
       emoji: '🌴',
-      text: 'Created and developed a fitness product company while living in the jungles of Costa Rica',
+      text: 'Created and developed a fitness e-commerce company while living in the jungles of Costa Rica',
     },
     {
       emoji: '⚙️',
-      text: 'Served as integrated product team lead for development and repair of gas turbine hardware from initial concept to production',
+      text: 'Led integrated product team for development and repair of gas turbine hardware from initial concept through production',
     },
     {
       emoji: '👨‍💼',
