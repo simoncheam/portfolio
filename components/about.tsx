@@ -40,7 +40,9 @@ const About = () => {
         </p>
 
         <div className='mt-8'>
-          <h3 className='text-xl font-semibold mb-4'>Career Highlights</h3>
+          <h3 className='text-xl font-semibold mb-4'>
+            If I had my own Pokémon card, here&apos;s just some of what would be on the back of it...
+          </h3>
           <div className='space-y-4'>
             {highlights.map((highlight, index) => (
               <div
