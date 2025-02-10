@@ -12,7 +12,7 @@ const About = () => {
     },
     {
       emoji: '⚙️',
-      text: 'Led integrated product team for development and repair of gas turbine hardware from initial concept through production',
+      text: 'Led cross-functional teams for new product and process development from initial concept through production',
     },
     {
       emoji: '👨‍💼',
