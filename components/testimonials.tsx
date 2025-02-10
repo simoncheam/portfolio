@@ -43,7 +43,9 @@ const Testimonials = () => {
               <CardContent className='p-6 flex flex-col w-full'>
                 <div className='flex flex-col flex-grow min-h-[200px]'>
                   <p className='font-semibold text-lg leading-tight mb-4'>{testimonial.highlight}</p>
-                  <blockquote className='text-sm text-muted-foreground flex-grow'>"{testimonial.quote}"</blockquote>
+                  <blockquote className='text-sm text-muted-foreground flex-grow'>
+                    &ldquo;{testimonial.quote}&rdquo;
+                  </blockquote>
                 </div>
                 <div className='flex items-center h-16 pt-6 mt-6 border-t border-border'>
                   <Avatar className='mr-4 h-12 w-12'>
