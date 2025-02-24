@@ -2,7 +2,14 @@
 
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 
-
+const logEnvironmentCheck = () => {
+  console.log('Environment Variables Check:', {
+    AWS_REGION: process.env.AWS_REGION ? 'Set' : 'Missing',
+    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID ? 'Set (First 4 chars): ' + process.env.AWS_ACCESS_KEY_ID.substring(0, 4) : 'Missing',
+    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY ? 'Set (Length): ' + process.env.AWS_SECRET_ACCESS_KEY.length : 'Missing',
+    LAMBDA_FUNCTION_ARN: process.env.LAMBDA_FUNCTION_ARN ? 'Set (Last 8 chars): ' + process.env.LAMBDA_FUNCTION_ARN.slice(-8) : 'Missing',
+  });
+};
 
 interface LambdaResponse {
   Payload: Uint8Array;
@@ -67,6 +74,7 @@ const LAMBDA_TIMEOUT = 15000;
 
 export async function sendMessage(formData: ContactFormData, recaptchaToken: string): Promise<{ success: boolean; message: string }> {
   try {
+    logEnvironmentCheck();
     verifyEnvironment();
 
     console.log('Starting sendMessage with form data:', {
