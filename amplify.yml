@@ -4,19 +4,26 @@ frontend:
     preBuild:
       commands:
         - npm ci --cache .npm --prefer-offline
-        - echo "Checking environment variables..."
-        - printenv | grep AWS_
     build:
       commands:
-        - echo "Creating .env.production file..."
-        - env | grep -e AWS_REGION -e LAMBDA_FUNCTION_ARN -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SES_EMAIL_FROM -e AWS_SES_EMAIL_TO -e RECAPTCHA_SECRET_KEY -e ADMIN_USER_ID >> .env.production
-        - env | grep -e NEXT_PUBLIC_RECAPTCHA_SITE_KEY >> .env.production
-        - echo "Building application..."
+        # Create environment file for build time
+        - echo "Creating runtime config..."
+        - echo "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> amplify-runtime-config.sh
+        - echo "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> amplify-runtime-config.sh
+        - echo "export AWS_REGION=$AWS_REGION" >> amplify-runtime-config.sh
+        - echo "export LAMBDA_FUNCTION_ARN=$LAMBDA_FUNCTION_ARN" >> amplify-runtime-config.sh
+        - chmod +x amplify-runtime-config.sh
         - npm run build
   artifacts:
     baseDirectory: .next
     files:
       - '**/*'
+      - '../amplify-runtime-config.sh'
+  customHeaders:
+    - pattern: '**/*'
+      headers:
+        - key: 'Cache-Control'
+          value: 'public, max-age=0, must-revalidate'
   cache:
     paths:
       - .next/cache/**/*
