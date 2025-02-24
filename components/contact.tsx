@@ -2,7 +2,6 @@
 
 import { Calendar, Github, Linkedin, Mail, MessageSquare } from 'lucide-react';
 import { Button } from './ui/button';
-
 import { RefObject, useEffect, useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { toast } from 'sonner';
@@ -14,31 +13,24 @@ declare global {
     grecaptcha: ReCAPTCHA;
   }
 }
+
 const Contact = () => {
   const [isRecaptchaReady, setIsRecaptchaReady] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
   useEffect(() => {
-    // console.log('Initial recaptcha state:', {
-    //   ref: recaptchaRef.current,
-    //   isReady: isRecaptchaReady,
-    //   siteKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-    // });
-
     // Check if reCAPTCHA script is loaded
     const checkRecaptchaScript = () => {
       if (window.grecaptcha) {
-        setIsLoading(false);
+        setIsRecaptchaReady(true);
       } else {
         setTimeout(checkRecaptchaScript, 1000);
       }
     };
 
     checkRecaptchaScript();
-  }, [isRecaptchaReady]);
-
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  }, []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText('simon@simoncheam.dev');
@@ -46,23 +38,20 @@ const Contact = () => {
   };
 
   const handleRecaptchaError = () => {
-    console.error('ReCAPTCHA error occurred');
-    toast.error('Verification service encountered an error. Please try again.');
     if (recaptchaRef.current) {
       recaptchaRef.current.reset();
     }
+    toast.error('Verification service encountered an error. Please try again.');
   };
 
   const handleRecaptchaExpired = () => {
-    console.warn('ReCAPTCHA token expired');
-    toast.warning('Verification expired. Please try again.');
     if (recaptchaRef.current) {
       recaptchaRef.current.reset();
     }
+    toast.warning('Verification expired. Please try again.');
   };
 
   const handleRecaptchaLoad = () => {
-    console.log('ReCAPTCHA loaded successfully');
     setIsRecaptchaReady(true);
   };
 
@@ -89,13 +78,9 @@ const Contact = () => {
               Let&apos;s Chat (15 min)
             </a>
           </Button>
-          {/* // TODO: Update here */}
           <Dialog
             open={isDialogOpen}
-            onOpenChange={(open) => {
-              // Remove the verification check here
-              setIsDialogOpen(open);
-            }}>
+            onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button
                 size='lg'
