@@ -8,6 +8,7 @@ import { Button } from './ui/button';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { DialogTitle } from '@radix-ui/react-dialog';
+import Image from 'next/image';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -111,6 +112,14 @@ export function Navbar() {
             <Link
               href='/'
               className='flex items-center space-x-2'>
+              <Image
+                src='/images/avatar.webp'
+                alt='Simon Cheam'
+                width={64}
+                height={64}
+                className='rounded-full w-8 h-8'
+                priority
+              />
               <span className='font-bold'>Simon Cheam</span>
             </Link>
             <span className='text-sm text-muted-foreground'>Full-Stack Developer</span>
@@ -120,8 +129,16 @@ export function Navbar() {
           <div className='md:hidden'>
             <Link
               href='/'
-              className='flex items-center'>
-              {/* <span className='font-bold'>Simon Cheam</span> */}
+              className='flex items-center space-x-2'>
+              <Image
+                src='/images/avatar.webp'
+                alt='Simon Cheam'
+                width={64}
+                height={64}
+                className='rounded-full w-8 h-8'
+                priority
+              />
+              <span className='font-bold'>Simon Cheam</span>
             </Link>
           </div>
 

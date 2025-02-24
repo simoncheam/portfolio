@@ -1,0 +1,3 @@
+ses_domain = "example.com"
+ses_sender_email = "noreply@example.com"
+github_repo_url = "https://github.com/username/repo"
