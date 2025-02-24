@@ -24,13 +24,6 @@ const formSchema = z.object({
 // Define type from schema
 type FormData = z.infer<typeof formSchema>;
 
-// interface ContactFormValues {
-//   name: string;
-//   email: string;
-//   message: string;
-//   phone?: string;
-// }
-
 interface ContactFormProps {
   onSuccess?: () => void;
   recaptchaRef?: RefObject<ReCAPTCHA>;
@@ -40,7 +33,7 @@ export function ContactForm({ onSuccess, recaptchaRef }: ContactFormProps) {
   const internalRecaptchaRef = useRef<ReCAPTCHA | null>(null);
   const resolvedRecaptchaRef = recaptchaRef ?? internalRecaptchaRef;
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const RECAPTCHA_TIMEOUT = 10000;
+  // const RECAPTCHA_TIMEOUT = 10000;
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),

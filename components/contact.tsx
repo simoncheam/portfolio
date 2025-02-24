@@ -45,14 +45,6 @@ const Contact = () => {
     toast.success('Email copied to clipboard!');
   };
 
-  const verifyRecaptchaLoaded = () => {
-    console.log('Verifying recaptcha:', {
-      ref: recaptchaRef.current,
-      isReady: isRecaptchaReady,
-    });
-    return true; // Always return true to allow dialog to open
-  };
-
   const handleRecaptchaError = () => {
     console.error('ReCAPTCHA error occurred');
     toast.error('Verification service encountered an error. Please try again.');
