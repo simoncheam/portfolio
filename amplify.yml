@@ -9,7 +9,7 @@ frontend:
     build:
       commands:
         - echo "Creating .env.production file..."
-        - env | grep -e AWS_REGION -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SES_EMAIL_FROM -e AWS_SES_EMAIL_TO -e RECAPTCHA_SECRET_KEY -e ADMIN_USER_ID >> .env.production
+        - env | grep -e AWS_REGION -e LAMBDA_FUNCTION_ARN -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SES_EMAIL_FROM -e AWS_SES_EMAIL_TO -e RECAPTCHA_SECRET_KEY -e ADMIN_USER_ID >> .env.production
         - env | grep -e NEXT_PUBLIC_RECAPTCHA_SITE_KEY >> .env.production
         - echo "Building application..."
         - npm run build
