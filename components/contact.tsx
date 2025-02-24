@@ -15,20 +15,16 @@ declare global {
 }
 
 const Contact = () => {
-  const [isRecaptchaReady, setIsRecaptchaReady] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
   useEffect(() => {
-    // Check if reCAPTCHA script is loaded
     const checkRecaptchaScript = () => {
       if (window.grecaptcha) {
-        setIsRecaptchaReady(true);
       } else {
         setTimeout(checkRecaptchaScript, 1000);
       }
     };
-
     checkRecaptchaScript();
   }, []);
 
@@ -49,10 +45,6 @@ const Contact = () => {
       recaptchaRef.current.reset();
     }
     toast.warning('Verification expired. Please try again.');
-  };
-
-  const handleRecaptchaLoad = () => {
-    setIsRecaptchaReady(true);
   };
 
   return (
@@ -153,7 +145,6 @@ const Contact = () => {
           theme='light'
           onErrored={handleRecaptchaError}
           onExpired={handleRecaptchaExpired}
-          onLoad={handleRecaptchaLoad}
         />
       </div>
     </section>

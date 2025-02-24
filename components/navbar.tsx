@@ -112,14 +112,6 @@ export function Navbar() {
             <Link
               href='/'
               className='flex items-center space-x-2'>
-              <Image
-                src='/images/avatar.webp'
-                alt='Simon Cheam'
-                width={64}
-                height={64}
-                className='rounded-full w-8 h-8'
-                priority
-              />
               <span className='font-bold'>Simon Cheam</span>
             </Link>
             <span className='text-sm text-muted-foreground'>Full-Stack Developer</span>
@@ -130,14 +122,6 @@ export function Navbar() {
             <Link
               href='/'
               className='flex items-center space-x-2'>
-              <Image
-                src='/images/avatar.webp'
-                alt='Simon Cheam'
-                width={64}
-                height={64}
-                className='rounded-full w-8 h-8'
-                priority
-              />
               <span className='font-bold'>Simon Cheam</span>
             </Link>
           </div>

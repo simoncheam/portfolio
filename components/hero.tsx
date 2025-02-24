@@ -12,9 +12,11 @@ const Hero = () => {
         <Image
           src='/images/avatar.webp'
           alt='Simon Cheam'
-          width={224}
-          height={224}
-          priority
+          width={256}
+          height={256}
+          priority={true}
+          sizes='(max-width: 768px) 192px, 256px'
+          quality={90}
           className='rounded-full border-4 border-gray-300 dark:border-gray-700 object-cover'
         />
       </div>
