@@ -43,10 +43,10 @@ const logError = (error: unknown, context: string) => {
 };
 
 // Verify environment variables are set
+// 'AWS_ACCESS_KEY_ID',
+// 'AWS_SECRET_ACCESS_KEY',
 const verifyEnvironment = () => {
   const requiredVars = [
-    'AWS_ACCESS_KEY_ID',
-    'AWS_SECRET_ACCESS_KEY',
     'AWS_REGION',
     'LAMBDA_FUNCTION_ARN'
   ];
@@ -62,10 +62,10 @@ const verifyEnvironment = () => {
 
 const lambdaClient = new LambdaClient({
   region: "us-east-1",
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-  },
+  // credentials: {
+  //   accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+  //   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+  // },
   maxAttempts: 3,
 });
 
@@ -74,8 +74,8 @@ const LAMBDA_TIMEOUT = 15000;
 
 export async function sendMessage(formData: ContactFormData, recaptchaToken: string): Promise<{ success: boolean; message: string }> {
   try {
-    logEnvironmentCheck();
-    verifyEnvironment();
+    // logEnvironmentCheck();
+    // verifyEnvironment();
 
     console.log('Starting sendMessage with form data:', {
       name: formData.name,
