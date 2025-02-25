@@ -51,6 +51,8 @@ frontend:
         - 'echo "# Next.js environment variables - Generated $(date)" > .env.production'
         - 'echo "AWS_REGION=$AWS_REGION" >> .env.production'
         - 'echo "LAMBDA_FUNCTION_ARN=$LAMBDA_FUNCTION_ARN" >> .env.production'
+        - 'echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env.production'
+        - 'echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env.production'
 
         # Build the application
         - echo "==== STARTING NEXT.JS BUILD ===="
