@@ -3,17 +3,18 @@ frontend:
   phases:
     preBuild:
       commands:
+        - touch amplify-runtime-config.sh
         - source amplify-runtime-config.sh
         - npm ci --cache .npm --prefer-offline
     build:
       commands:
-        # Create environment file for build time
+        # Create environment file for runtime
         - echo "Creating runtime config..."
-        - echo "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> amplify-runtime-config.sh
-        - echo "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> amplify-runtime-config.sh
         - echo "export AWS_REGION=$AWS_REGION" >> amplify-runtime-config.sh
         - echo "export LAMBDA_FUNCTION_ARN=$LAMBDA_FUNCTION_ARN" >> amplify-runtime-config.sh
+        - echo "export LAMBDA_FUNCTION_ARN=$LAMBDA_FUNCTION_ARN" >> amplify-runtime-config.sh
         - chmod +x amplify-runtime-config.sh
+        - source amplify-runtime-config.sh
         - npm run build
   artifacts:
     baseDirectory: .next

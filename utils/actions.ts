@@ -1,15 +1,15 @@
 'use server';
 
-import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
+import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda"; //!
 
-const logEnvironmentCheck = () => {
-  console.log('Environment Variables Check:', {
-    AWS_REGION: process.env.AWS_REGION ? 'Set' : 'Missing',
-    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID ? 'Set (First 4 chars): ' + process.env.AWS_ACCESS_KEY_ID.substring(0, 4) : 'Missing',
-    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY ? 'Set (Length): ' + process.env.AWS_SECRET_ACCESS_KEY.length : 'Missing',
-    LAMBDA_FUNCTION_ARN: process.env.LAMBDA_FUNCTION_ARN ? 'Set (Last 8 chars): ' + process.env.LAMBDA_FUNCTION_ARN.slice(-8) : 'Missing',
-  });
-};
+// const logEnvironmentCheck = () => {
+//   console.log('Environment Variables Check:', {
+//     AWS_REGION: process.env.AWS_REGION ? 'Set' : 'Missing',
+//     AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID ? 'Set (First 4 chars): ' + process.env.AWS_ACCESS_KEY_ID.substring(0, 4) : 'Missing',
+//     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY ? 'Set (Length): ' + process.env.AWS_SECRET_ACCESS_KEY.length : 'Missing',
+//     LAMBDA_FUNCTION_ARN: process.env.LAMBDA_FUNCTION_ARN ? 'Set (Last 8 chars): ' + process.env.LAMBDA_FUNCTION_ARN.slice(-8) : 'Missing',
+//   });
+// };
 
 interface LambdaResponse {
   Payload: Uint8Array;
@@ -45,27 +45,27 @@ const logError = (error: unknown, context: string) => {
 // Verify environment variables are set
 // 'AWS_ACCESS_KEY_ID',
 // 'AWS_SECRET_ACCESS_KEY',
-const verifyEnvironment = () => {
-  const requiredVars = [
-    'AWS_REGION',
-    'LAMBDA_FUNCTION_ARN'
-  ];
+// const verifyEnvironment = () => {
+//   const requiredVars = [
+//     'AWS_REGION',
+//     'LAMBDA_FUNCTION_ARN'
+//   ];
 
-  const missingVars = requiredVars.filter(varName => !process.env[varName]);
+//   const missingVars = requiredVars.filter(varName => !process.env[varName]);
 
-  if (missingVars.length > 0) {
-    throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
-  }
-};
+//   if (missingVars.length > 0) {
+//     throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
+//   }
+// };
 
 
+// credentials: {
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+// },
 
 const lambdaClient = new LambdaClient({
-  region: "us-east-1",
-  // credentials: {
-  //   accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-  //   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-  // },
+  region: process.env.AWS_REGION || "us-east-1",
   maxAttempts: 3,
 });
 
@@ -84,18 +84,27 @@ export async function sendMessage(formData: ContactFormData, recaptchaToken: str
       hasRecaptchaToken: !!recaptchaToken
     });
 
-    const payload = {
-      body: JSON.stringify({
+    // const payload = {
+    //   body: JSON.stringify({
+    //     name: formData.name,
+    //     email: formData.email,
+    //     message: formData.message,
+    //     recaptchaToken
+    //   })
+    // };
+
+    // Log the Lambda ARN being used for debugging
+    const functionArn = process.env.LAMBDA_FUNCTION_ARN;
+    console.log('Using Lambda ARN:', functionArn ? `...${functionArn.slice(-8)}` : 'undefined');
+
+    const lambdaCommand = new InvokeCommand({
+      FunctionName: functionArn!,
+      Payload: JSON.stringify({
         name: formData.name,
         email: formData.email,
         message: formData.message,
         recaptchaToken
-      })
-    };
-
-    const lambdaCommand = new InvokeCommand({
-      FunctionName: process.env.LAMBDA_FUNCTION_ARN!,
-      Payload: JSON.stringify(payload),
+      }),
       InvocationType: 'RequestResponse',
       LogType: 'Tail'
     });
@@ -129,7 +138,6 @@ export async function sendMessage(formData: ContactFormData, recaptchaToken: str
 
     // Parse response
     const responseText = new TextDecoder().decode(response.Payload);
-
     console.log('Decoded response payload:', responseText);
 
     const responsePayload = JSON.parse(responseText) as ParsedResponse;
