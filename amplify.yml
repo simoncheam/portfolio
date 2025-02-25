@@ -22,6 +22,9 @@ frontend:
         - 'echo "echo ''Loading runtime environment variables...''" >> amplify-runtime-config.sh'
 
         # Export all AWS-related variables
+        - "echo \"export AWS_ACCESS_KEY_ID=\\\"$AWS_ACCESS_KEY_ID\\\"\" >> amplify-runtime-config.sh"
+        - "echo \"export AWS_SECRET_ACCESS_KEY=\\\"$AWS_SECRET_ACCESS_KEY\\\"\" >> amplify-runtime-config.sh"
+
         - "echo \"export AWS_REGION=\\\"$AWS_REGION\\\"\" >> amplify-runtime-config.sh"
         - "echo \"export LAMBDA_FUNCTION_ARN=\\\"$LAMBDA_FUNCTION_ARN\\\"\" >> amplify-runtime-config.sh"
 
@@ -40,6 +43,9 @@ frontend:
         # Verify environment variables are set after sourcing
         - 'echo "VERIFICATION - AWS_REGION: $AWS_REGION"'
         - 'echo "VERIFICATION - LAMBDA_FUNCTION_ARN: $LAMBDA_FUNCTION_ARN"'
+
+        - 'echo "VERIFICATION - AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"'
+        - 'echo "VERIFICATION - AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"'
 
         # Also create a .env file for Next.js (additional safeguard)
         - 'echo "# Next.js environment variables - Generated $(date)" > .env.production'
