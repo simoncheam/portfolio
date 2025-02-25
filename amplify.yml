@@ -3,23 +3,60 @@ frontend:
   phases:
     preBuild:
       commands:
+        - echo "==== STARTING BUILD PROCESS WITH ENVIRONMENT DEBUGGING ===="
+        - echo "Creating runtime config file..."
         - touch amplify-runtime-config.sh
+        - echo "Current environment variables (filtered sensitive data):"
+        - printenv | grep -v -E "(KEY|SECRET|PASSWORD|TOKEN)" | sort
         - npm ci --cache .npm --prefer-offline
     build:
       commands:
-        # Create environment file for runtime
-        - echo "Creating runtime config..."
-        - echo "export AWS_REGION=$AWS_REGION" >> amplify-runtime-config.sh
-        - echo "export LAMBDA_FUNCTION_ARN=$LAMBDA_FUNCTION_ARN" >> amplify-runtime-config.sh
-        - echo "export LAMBDA_FUNCTION_ARN=$LAMBDA_FUNCTION_ARN" >> amplify-runtime-config.sh
+        # Log important build information
+        - echo "==== BUILD PHASE STARTED at $(date) ===="
+        - echo "NODE_ENV: $NODE_ENV"
+        - echo "NODE_VERSION: $(node -v)"
+        - echo "NPM_VERSION: $(npm -v)"
+
+        # Create environment file for runtime with all variables
+        - echo "# Runtime environment configuration - Generated $(date)" > amplify-runtime-config.sh
+        - echo "echo 'Loading runtime environment variables...'" >> amplify-runtime-config.sh
+
+        # Export all AWS-related variables
+        - echo "export AWS_REGION=\"$AWS_REGION\"" >> amplify-runtime-config.sh
+        - echo "export LAMBDA_FUNCTION_ARN=\"$LAMBDA_FUNCTION_ARN\"" >> amplify-runtime-config.sh
+
+        # Export any other variables your application needs
+        - echo "export NODE_ENV=\"$NODE_ENV\"" >> amplify-runtime-config.sh
+
+        # Create a debug version of the config file to verify contents
+        - echo "==== RUNTIME CONFIG CONTENTS ===="
+        - cat amplify-runtime-config.sh
+        - echo "=================================="
+
+        # Make the script executable and source it
         - chmod +x amplify-runtime-config.sh
         - source amplify-runtime-config.sh
+
+        # Verify environment variables are set after sourcing
+        - echo "VERIFICATION - AWS_REGION: $AWS_REGION"
+        - echo "VERIFICATION - LAMBDA_FUNCTION_ARN: $LAMBDA_FUNCTION_ARN"
+
+        # Also create a .env file for Next.js (additional safeguard)
+        - echo "# Next.js environment variables - Generated $(date)" > .env.production
+        - echo "AWS_REGION=$AWS_REGION" >> .env.production
+        - echo "LAMBDA_FUNCTION_ARN=$LAMBDA_FUNCTION_ARN" >> .env.production
+
+        # Build the application
+        - echo "==== STARTING NEXT.JS BUILD ===="
         - npm run build
+        - echo "==== BUILD COMPLETED ===="
+
   artifacts:
     baseDirectory: .next
     files:
       - '**/*'
       - '../amplify-runtime-config.sh'
+      - '../.env.production'
   customHeaders:
     - pattern: '**/*'
       headers:
