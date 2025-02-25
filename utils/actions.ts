@@ -77,6 +77,13 @@ export async function sendMessage(formData: ContactFormData, recaptchaToken: str
     // logEnvironmentCheck();
     // verifyEnvironment();
 
+    console.log('Environment check:', {
+      NODE_ENV: process.env.NODE_ENV,
+      AWS_REGION: process.env.AWS_REGION,
+      LAMBDA_FUNCTION_ARN: process.env.LAMBDA_FUNCTION_ARN,
+      AWS_EXECUTION_ENV: process.env.AWS_EXECUTION_ENV,
+    });
+
     console.log('Starting sendMessage with form data:', {
       name: formData.name,
       email: formData.email,
