@@ -13,12 +13,12 @@ frontend:
     build:
       commands:
         - echo "==== BUILD PHASE STARTED at $(date) ==="
-        - echo "NODE_ENV: ${NODE_ENV:-MISSING}"
-        - echo "NODE_VERSION: $(node -v)"
-        - echo "NPM_VERSION: $(npm -v)"
+        - 'echo "NODE_ENV: ${NODE_ENV:-MISSING}"'
+        - 'echo "NODE_VERSION: $(node -v)"'
+        - 'echo "NPM_VERSION: $(npm -v)"'
 
-        - echo "DEBUG - AWS_ACCESS_KEY_ID before writing: ${AWS_ACCESS_KEY_ID:-MISSING}"
-        - echo "DEBUG - AWS_SECRET_ACCESS_KEY before writing: ${AWS_SECRET_ACCESS_KEY:-MISSING}"
+        - 'echo "DEBUG - AWS_ACCESS_KEY_ID before writing: ${AWS_ACCESS_KEY_ID:-MISSING}"'
+        - 'echo "DEBUG - AWS_SECRET_ACCESS_KEY before writing: ${AWS_SECRET_ACCESS_KEY:-MISSING}"'
 
         - echo "# Runtime environment configuration - Generated $(date)" > amplify-runtime-config.sh
         - echo "echo 'Loading runtime environment variables...'" >> amplify-runtime-config.sh
@@ -35,18 +35,18 @@ frontend:
         - cat amplify-runtime-config.sh
         - echo "=================================="
 
-        - echo "DEBUG - ADMIN_USER_ID before sourcing: ${ADMIN_USER_ID:-MISSING}"
-        - echo "DEBUG - AWS_ACCESS_KEY_ID before sourcing: ${AWS_ACCESS_KEY_ID:-MISSING}"
-        - echo "DEBUG - AWS_SECRET_ACCESS_KEY before sourcing: ${AWS_SECRET_ACCESS_KEY:-MISSING}"
+        - 'echo "DEBUG - ADMIN_USER_ID before sourcing: ${ADMIN_USER_ID:-MISSING}"'
+        - 'echo "DEBUG - AWS_ACCESS_KEY_ID before sourcing: ${AWS_ACCESS_KEY_ID:-MISSING}"'
+        - 'echo "DEBUG - AWS_SECRET_ACCESS_KEY before sourcing: ${AWS_SECRET_ACCESS_KEY:-MISSING}"'
 
         - chmod +x amplify-runtime-config.sh
         - source amplify-runtime-config.sh
 
-        - echo "VERIFICATION - AWS_REGION: ${AWS_REGION:-MISSING}"
-        - echo "VERIFICATION - LAMBDA_FUNCTION_ARN: ${LAMBDA_FUNCTION_ARN:-MISSING}"
-        - echo "VERIFICATION - ADMIN_USER_ID: ${ADMIN_USER_ID:-MISSING}"
-        - echo "VERIFICATION - AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-MISSING}"
-        - echo "VERIFICATION - AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-MISSING}"
+        - 'echo "VERIFICATION - AWS_REGION: ${AWS_REGION:-MISSING}"'
+        - 'echo "VERIFICATION - LAMBDA_FUNCTION_ARN: ${LAMBDA_FUNCTION_ARN:-MISSING}"'
+        - 'echo "VERIFICATION - ADMIN_USER_ID: ${ADMIN_USER_ID:-MISSING}"'
+        - 'echo "VERIFICATION - AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-MISSING}"'
+        - 'echo "VERIFICATION - AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-MISSING}"'
 
         - echo "# Next.js environment variables - Generated $(date)" > .env.production
         - echo "AWS_REGION=${AWS_REGION}" >> .env.production
