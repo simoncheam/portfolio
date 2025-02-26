@@ -1,7 +1,6 @@
 'use server';
-import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda"; //!
-
+import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
 // const logEnvironmentCheck = () => {
 //   console.log('Environment Variables Check:', {
 //     AWS_REGION: process.env.AWS_REGION ? 'Set' : 'Missing',
@@ -42,6 +41,17 @@ const logError = (error: unknown, context: string) => {
   });
 };
 
+
+async function testIAMRole() {
+  try {
+    const credentials = await fromNodeProviderChain()();
+    console.log("IAM Role Credentials:", credentials);
+  } catch (error) {
+    console.error("IAM Role Error:", error);
+  }
+}
+
+
 // Verify environment variables are set
 // 'AWS_ACCESS_KEY_ID',
 // 'AWS_SECRET_ACCESS_KEY',
@@ -66,7 +76,6 @@ const logError = (error: unknown, context: string) => {
 
 const lambdaClient = new LambdaClient({
   region: process.env.AWS_REGION || "us-east-1",
-  credentials: fromNodeProviderChain(),
   maxAttempts: 3,
 });
 
@@ -75,6 +84,7 @@ const LAMBDA_TIMEOUT = 15000;
 
 export async function sendMessage(formData: ContactFormData, recaptchaToken: string): Promise<{ success: boolean; message: string }> {
   try {
+    testIAMRole();
     // logEnvironmentCheck();
     // verifyEnvironment();
 
