@@ -1,14 +1,7 @@
 'use server';
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda"; //!
 import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
-// const logEnvironmentCheck = () => {
-//   console.log('Environment Variables Check:', {
-//     AWS_REGION: process.env.AWS_REGION ? 'Set' : 'Missing',
-//     AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID ? 'Set (First 4 chars): ' + process.env.AWS_ACCESS_KEY_ID.substring(0, 4) : 'Missing',
-//     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY ? 'Set (Length): ' + process.env.AWS_SECRET_ACCESS_KEY.length : 'Missing',
-//     LAMBDA_FUNCTION_ARN: process.env.LAMBDA_FUNCTION_ARN ? 'Set (Last 8 chars): ' + process.env.LAMBDA_FUNCTION_ARN.slice(-8) : 'Missing',
-//   });
-// };
+
 
 interface LambdaResponse {
   Payload: Uint8Array;
@@ -104,14 +97,7 @@ export async function sendMessage(formData: ContactFormData, recaptchaToken: str
       hasRecaptchaToken: !!recaptchaToken
     });
 
-    // const payload = {
-    //   body: JSON.stringify({
-    //     name: formData.name,
-    //     email: formData.email,
-    //     message: formData.message,
-    //     recaptchaToken
-    //   })
-    // };
+
 
     // Log the Lambda ARN being used for debugging
     const functionArn = process.env.LAMBDA_FUNCTION_ARN;
