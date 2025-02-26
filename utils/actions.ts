@@ -1,5 +1,5 @@
 'use server';
-
+import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda"; //!
 
 // const logEnvironmentCheck = () => {
@@ -66,6 +66,7 @@ const logError = (error: unknown, context: string) => {
 
 const lambdaClient = new LambdaClient({
   region: process.env.AWS_REGION || "us-east-1",
+  credentials: fromNodeProviderChain(),
   maxAttempts: 3,
 });
 
@@ -82,6 +83,8 @@ export async function sendMessage(formData: ContactFormData, recaptchaToken: str
       AWS_REGION: process.env.AWS_REGION,
       LAMBDA_FUNCTION_ARN: process.env.LAMBDA_FUNCTION_ARN,
       AWS_EXECUTION_ENV: process.env.AWS_EXECUTION_ENV,
+      AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID ? "Exists" : "Missing",
+      AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY ? "Exists" : "Missing",
     });
 
     console.log('Starting sendMessage with form data:', {
