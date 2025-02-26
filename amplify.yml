@@ -6,58 +6,48 @@ frontend:
         - echo "==== STARTING BUILD PROCESS WITH ENVIRONMENT DEBUGGING ===="
         - echo "Creating runtime config file..."
         - touch amplify-runtime-config.sh
-        - echo "Current environment variables (filtered sensitive data):"
+        - echo "Current environment variables (filtered sensitive data)"
         - printenv | grep -v -E '(KEY|SECRET|PASSWORD|TOKEN)' | sort
         - npm ci --cache .npm --prefer-offline
 
     build:
       commands:
-        # Log important build information
         - echo "==== BUILD PHASE STARTED at $(date) ==="
         - echo "NODE_ENV: ${NODE_ENV:-MISSING}"
         - echo "NODE_VERSION: $(node -v)"
         - echo "NPM_VERSION: $(npm -v)"
 
-        # Debug environment before storing
         - echo "DEBUG - AWS_ACCESS_KEY_ID before writing: ${AWS_ACCESS_KEY_ID:-MISSING}"
         - echo "DEBUG - AWS_SECRET_ACCESS_KEY before writing: ${AWS_SECRET_ACCESS_KEY:-MISSING}"
 
-        # Create environment file for runtime with all variables
         - echo "# Runtime environment configuration - Generated $(date)" > amplify-runtime-config.sh
         - echo "echo 'Loading runtime environment variables...'" >> amplify-runtime-config.sh
 
-        # Export all AWS-related variables
         - echo "export AWS_ACCESS_KEY_ID=\"${AWS_ACCESS_KEY_ID}\"" >> amplify-runtime-config.sh
         - echo "export AWS_SECRET_ACCESS_KEY=\"${AWS_SECRET_ACCESS_KEY}\"" >> amplify-runtime-config.sh
         - echo "export AWS_REGION=\"${AWS_REGION}\"" >> amplify-runtime-config.sh
         - echo "export LAMBDA_FUNCTION_ARN=\"${LAMBDA_FUNCTION_ARN}\"" >> amplify-runtime-config.sh
         - echo "export ADMIN_USER_ID=\"${ADMIN_USER_ID}\"" >> amplify-runtime-config.sh
 
-        # Export any other variables your application needs
         - echo "export NODE_ENV=\"${NODE_ENV}\"" >> amplify-runtime-config.sh
 
-        # Debug runtime config file before sourcing
         - echo "==== RUNTIME CONFIG CONTENTS ===="
         - cat amplify-runtime-config.sh
         - echo "=================================="
 
-        # Debug before sourcing
         - echo "DEBUG - ADMIN_USER_ID before sourcing: ${ADMIN_USER_ID:-MISSING}"
         - echo "DEBUG - AWS_ACCESS_KEY_ID before sourcing: ${AWS_ACCESS_KEY_ID:-MISSING}"
         - echo "DEBUG - AWS_SECRET_ACCESS_KEY before sourcing: ${AWS_SECRET_ACCESS_KEY:-MISSING}"
 
-        # Make the script executable and source it
         - chmod +x amplify-runtime-config.sh
         - source amplify-runtime-config.sh
 
-        # Verify environment variables are set after sourcing
         - echo "VERIFICATION - AWS_REGION: ${AWS_REGION:-MISSING}"
         - echo "VERIFICATION - LAMBDA_FUNCTION_ARN: ${LAMBDA_FUNCTION_ARN:-MISSING}"
         - echo "VERIFICATION - ADMIN_USER_ID: ${ADMIN_USER_ID:-MISSING}"
         - echo "VERIFICATION - AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-MISSING}"
         - echo "VERIFICATION - AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-MISSING}"
 
-        # Also create a .env file for Next.js
         - echo "# Next.js environment variables - Generated $(date)" > .env.production
         - echo "AWS_REGION=${AWS_REGION}" >> .env.production
         - echo "LAMBDA_FUNCTION_ARN=${LAMBDA_FUNCTION_ARN}" >> .env.production
@@ -65,7 +55,6 @@ frontend:
         - echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" >> .env.production
         - echo "ADMIN_USER_ID=${ADMIN_USER_ID}" >> .env.production
 
-        # Build the application
         - echo "==== STARTING NEXT.JS BUILD ===="
         - npm run build
         - echo "==== BUILD COMPLETED ===="
