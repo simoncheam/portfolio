@@ -4,6 +4,8 @@ frontend:
     preBuild:
       commands:
         - echo "==== STARTING BUILD PROCESS WITH ENVIRONMENT DEBUGGING ===="
+        - echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}"
+        - echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}"
         - echo "Creating runtime config file..."
         - touch amplify-runtime-config.sh
         - echo "Current environment variables (filtered sensitive data)"
