@@ -1,0 +1,13 @@
+{
+  "name": "portfolio-contact-form-lambda",
+  "version": "1.0.0",
+  "description": "Serverless contact form handler for portfolio website",
+  "type": "module",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-ses": "^3.573.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

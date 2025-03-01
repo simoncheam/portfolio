@@ -1,0 +1,43 @@
+name: Deploy Contact Form Lambda
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'lambda/**'
+
+jobs:
+  deploy-lambda:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - name: Install Dependencies
+        run: |
+          cd lambda/
+          npm ci
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy Lambda Function
+        run: |
+          cd lambda/
+          zip -r lambda.zip .
+          aws lambda update-function-code --function-name portfolio-contact-form-handler --zip-file fileb://lambda.zip
+
+      - name: Update Lambda Environment Variables
+        run: |
+          aws lambda update-function-configuration \
+            --function-name portfolio-contact-form-handler \
+            --environment "Variables={AWS_SES_EMAIL_FROM=${{ secrets.AWS_SES_EMAIL_FROM }},AWS_SES_EMAIL_TO=${{ secrets.AWS_SES_EMAIL_TO }},RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }}}"
