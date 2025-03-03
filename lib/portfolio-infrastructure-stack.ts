@@ -1,258 +1,90 @@
 import * as amplify from '@aws-cdk/aws-amplify-alpha';
 import * as cdk from 'aws-cdk-lib';
 import * as codebuild from 'aws-cdk-lib/aws-codebuild';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 
 export class PortfolioInfrastructureStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // Create a secret for the reCAPTCHA key (or retrieve existing)
-    // const recaptchaSecret = new secretsmanager.Secret(this, 'RecaptchaSecret', {
-    //   secretName: 'portfolio/recaptcha-secret-key',
-    //   description: 'Secret key for reCAPTCHA verification',
-    //   generateSecretString: {
-    //     secretStringTemplate: JSON.stringify({
-    //       RECAPTCHA_SECRET_KEY: 'placeholder-replace-with-actual-key'
-    //     }),
-    //     generateStringKey: 'password' // This won't be used but is required
-    //   }
-    // });
+    // Import the existing Lambda function - Next.js app will access this via LAMBDA_FUNCTION_ARN env var
+    // This replaces the manually created sendEmailLambda function
+    const contactFormLambda = lambda.Function.fromFunctionName(
+      this,
+      'ImportedContactFormLambda',
+      'portfolio-contact-form-handler'
+    );
 
-    // Create a log group for Lambda
-    // const lambdaLogGroup = new logs.LogGroup(this, 'ContactFormLogGroup', {
-    //   logGroupName: '/aws/lambda/contact-form-handler',
-    //   retention: logs.RetentionDays.ONE_WEEK
-    // });
+    // Import existing Amplify App instead of creating a new one
+    // Note: We use AWS CLI to update this app, not CDK, to avoid TypeScript errors
+    const amplifyApp = amplify.App.fromAppId(this, 'ExistingPortfolioApp', 'd3e3dxr1af7svc');
+    
+    // IMPORTANT: CDK grantInvoke is not sufficient for imported Lambda functions
+    // Must manually add permissions to the specific Amplify SSR role with:
+    // aws iam attach-role-policy --role-name <AmplifySSRRoleName> --policy-arn <PolicyWithLambdaInvokePermission>
+    contactFormLambda.grantInvoke(new iam.ServicePrincipal('amplify.amazonaws.com'));
 
-    // Create Lambda function for contact form
-    // const contactFormLambda = new lambdaNodejs.NodejsFunction(this, 'ContactFormLambda', {
-    //   functionName: 'portfolio-contact-form-handler',
-    //   runtime: lambda.Runtime.NODEJS_18_X,
-    //   entry: path.join(__dirname, '../lambda/contact-form-handler.ts'),
-    //   handler: 'handler',
-    //   environment: {
-    //     RECAPTCHA_SECRET_KEY: recaptchaSecret.secretValueFromJson('RECAPTCHA_SECRET_KEY').toString()
-    //   },
-    //   logGroup: lambdaLogGroup,
-    //   timeout: cdk.Duration.seconds(10),
-    //   memorySize: 256,
-    //   tracing: lambda.Tracing.ACTIVE, // Enable X-Ray tracing
-    //   bundling: {
-    //     minify: true,
-    //     sourceMap: true,
-    //     externalModules: [
-    //       'aws-sdk'
-    //     ]
-    //   }
-    // });
-
-    // Grant Lambda permission to send emails with SES
-    // contactFormLambda.addToRolePolicy(new iam.PolicyStatement({
-    //   actions: ['ses:SendEmail', 'ses:SendRawEmail'],
-    //   resources: ['*']
-    // }));
-
-    // Create API Gateway
-    // const api = new apigateway.RestApi(this, 'ContactFormAPI', {
-    //   restApiName: 'Portfolio Contact Form API',
-    //   description: 'API for the portfolio contact form',
-    //   defaultCorsPreflightOptions: {
-    //     allowOrigins: apigateway.Cors.ALL_ORIGINS,
-    //     allowMethods: apigateway.Cors.ALL_METHODS,
-    //     allowHeaders: ['Content-Type', 'X-Amz-Date', 'Authorization', 'X-Api-Key']
-    //   },
-    //   deployOptions: {
-    //     stageName: 'prod',
-    //     dataTraceEnabled: true,
-    //     loggingLevel: apigateway.MethodLoggingLevel.INFO,
-    //     tracingEnabled: true,
-    //     metricsEnabled: true
-    //   }
-    // });
-
-    // Create API Key and Usage Plan
-    // const apiKey = api.addApiKey('ContactFormApiKey');
-
-    // const plan = api.addUsagePlan('ContactFormUsagePlan', {
-    //   name: 'ContactFormUsagePlan',
-    //   apiKey,
-    //   throttle: {
-    //     rateLimit: 10,
-    //     burstLimit: 2
-    //   },
-    //   quota: {
-    //     limit: 1000,
-    //     period: apigateway.Period.MONTH
-    //   }
-    // });
-
-    // plan.addApiStage({
-    //   stage: api.deploymentStage
-    // });
-
-    // Create WAF Web ACL for API Gateway
-    // const webAcl = new wafv2.CfnWebACL(this, 'PortfolioApiWaf', {
-    //   name: 'portfolio-api-waf',
-    //   scope: 'REGIONAL',
-    //   defaultAction: {
-    //     allow: {}
-    //   },
-    //   rules: [
-    //     {
-    //       name: 'RateLimitRule',
-    //       priority: 1,
-    //       action: {
-    //         block: {}
-    //       },
-    //       statement: {
-    //         rateBasedStatement: {
-    //           limit: 100,
-    //           aggregateKeyType: 'IP'
-    //         }
-    //       },
-    //       visibilityConfig: {
-    //         sampledRequestsEnabled: true,
-    //         cloudWatchMetricsEnabled: true,
-    //         metricName: 'RateLimitRule'
-    //       }
-    //     },
-    //     {
-    //       name: 'AWSManagedRulesCommonRuleSet',
-    //       priority: 2,
-    //       overrideAction: {
-    //         none: {}
-    //       },
-    //       statement: {
-    //         managedRuleGroupStatement: {
-    //           vendorName: 'AWS',
-    //           name: 'AWSManagedRulesCommonRuleSet'
-    //         }
-    //       },
-    //       visibilityConfig: {
-    //         sampledRequestsEnabled: true,
-    //         cloudWatchMetricsEnabled: true,
-    //         metricName: 'AWSManagedRulesCommonRuleSet'
-    //       }
-    //     }
-    //   ],
-    //   visibilityConfig: {
-    //     cloudWatchMetricsEnabled: true,
-    //     metricName: 'PortfolioApiWaf',
-    //     sampledRequestsEnabled: true
-    //   }
-    // });
-
-    // Associate WAF with API Gateway to protect against abuse (rate limiting) and common web vulnerabilities
-    // new wafv2.CfnWebACLAssociation(this, 'WafApiAssociation', {
-    //   resourceArn: `arn:aws:apigateway:${this.region}::/restapis/${api.restApiId}/stages/${api.deploymentStage.stageName}`,
-    //   webAclArn: webAcl.attrArn
-    // });
-
-    // Create POST endpoint for contact form submissions; requires API key to prevent unauthorized access
-    // const contactResource = api.root.addResource('contact');
-    // contactResource.addMethod('POST', new apigateway.LambdaIntegration(contactFormLambda), {
-    //   apiKeyRequired: true
-    // });
-
-    // Create Amplify App
-    const amplifyApp = new amplify.App(this, 'PortfolioInfrastructureApp', {
-      appName: 'Portfolio',
-      // Connect to GitHub repo - Uncomment and update when ready to connect to GitHub
-      sourceCodeProvider: new amplify.GitHubSourceCodeProvider({
-        owner: 'simoncheam', // Replace with your GitHub username
-        repository: 'portfolio',
-        oauthToken: cdk.SecretValue.secretsManager('github-token')
-      }),
-
-      // Build specification
-      buildSpec: codebuild.BuildSpec.fromObjectToYaml({
-        version: '1.0',
-        frontend: {
-          phases: {
-            preBuild: {
-              commands: [
-                'echo "Starting build..."',
-                'cd portfolio',
-                'npm ci --cache .npm --prefer-offline'
-              ],
-            },
-            build: {
-              commands: [
-                'echo "Building Next.js app"',
-                'npm run build',
-                'echo "Build completed"'
-              ],
-            },
+    // Update environment variables to point to the new Lambda function
+    const buildSpec = codebuild.BuildSpec.fromObjectToYaml({
+      version: '1.0',
+      frontend: {
+        phases: {
+          preBuild: {
+            commands: [
+              'echo "Starting build..."',
+              'npm ci --cache .npm --prefer-offline'
+            ],
           },
-          artifacts: {
-            baseDirectory: 'portfolio/.next',
-            files: ['**/*'],
+          build: {
+            commands: [
+              'echo "Setting up environment variables..."',
+              // This exports the Lambda ARN for Next.js to access during build
+              `echo "export LAMBDA_FUNCTION_ARN=${contactFormLambda.functionArn}" >> .env.local`,
+              'echo "Building Next.js app"',
+              'npm run build',
+              // Added export step for static site generation - produces files in 'out' directory
+              'npx next export',
+              'echo "Build completed"'
+            ],
           },
-          cache: {
-            paths: [
-              'node_modules/**',
-              '.next/cache/**/*'
-            ]
-          }
+        },
+        artifacts: {
+          // Changed from '.next' to 'out' to use the static export output
+          baseDirectory: 'out',
+          files: ['**/*'],
+        },
+        cache: {
+          paths: [
+            'node_modules/**/*',
+            '.next/cache/**/*'
+          ]
         }
-      }),
-      // environmentVariables: {
-      //   'LAMBDA_FUNCTION_ARN': contactFormLambda.functionArn,
-      //   'API_ENDPOINT': `https://${api.restApiId}.execute-api.${this.region}.amazonaws.com/prod/`,
-      //   'API_KEY': apiKey.keyId
-      // }
+      }
     });
 
-    //* Configure Amplify to automatically build and deploy when changes are pushed to main branch
-    const mainBranch = amplifyApp.addBranch('main', {
-      autoBuild: true,
+    // Note: We use AWS CLI instead of addBranch since IApp interface doesn't have that method
+    // AWS CLI command used: aws amplify update-app --app-id d3e3dxr1af7svc --environment-variables LAMBDA_FUNCTION_ARN=arn:aws:lambda:us-east-1:337909778992:function:portfolio-contact-form-handler
+    
+    // Use a CfnOutput for the Lambda ARN which can be used in AWS CLI commands
+    new cdk.CfnOutput(this, 'AmplifyEnvVarCommand', {
+      value: `aws amplify update-app --app-id d3e3dxr1af7svc --environment-variables LAMBDA_FUNCTION_ARN=${contactFormLambda.functionArn}`,
+      description: 'Command to update Amplify app with Lambda ARN environment variable'
+    });
+    
+    // Create a CloudFormation output for the Amplify app URL
+    // This is a hardcoded URL since we can't use defaultDomain on IApp
+    new cdk.CfnOutput(this, 'AmplifyAppURL', {
+      value: 'https://main.d3e3dxr1af7svc.amplifyapp.com',
+      description: 'URL for the deployed Amplify application'
     });
 
-    // Add CloudWatch dashboard for monitoring
-    // const dashboard = new cdk.aws_cloudwatch.Dashboard(this, 'PortfolioDashboard', {
-    //   dashboardName: 'Portfolio-Monitoring'
-    // });
-
-    // dashboard.addWidgets(
-    //   new cdk.aws_cloudwatch.GraphWidget({
-    //     title: 'API Gateway Requests',
-    //     left: [api.metricCount()]
-    //   }),
-    //   new cdk.aws_cloudwatch.GraphWidget({
-    //     title: 'Lambda Errors',
-    //     left: [contactFormLambda.metricErrors()]
-    //   }),
-    //   new cdk.aws_cloudwatch.GraphWidget({
-    //     title: 'Lambda Duration',
-    //     left: [contactFormLambda.metricDuration()]
-    //   })
-    // );
-
-    // Outputs
-    // new cdk.CfnOutput(this, 'AmplifyAppURL', {
-    //   value: `https://${mainBranch.branchName}.${amplifyApp.defaultDomain}`,
-    //   description: 'URL for the deployed Amplify application'
-    // });
-
-    // new cdk.CfnOutput(this, 'ContactFormApiEndpoint', {
-    //   value: `${api.url}contact`,
-    //   description: 'Endpoint for the contact form API'
-    // });
-
-    // new cdk.CfnOutput(this, 'ApiKeyId', {
-    //   value: apiKey.keyId,
-    //   description: 'API Key ID for the contact form API'
-    // });
-
-    // new cdk.CfnOutput(this, 'LambdaFunction', {
-    //   value: contactFormLambda.functionName,
-    //   description: 'Lambda function name for contact form processing'
-    // });
-
-    // new cdk.CfnOutput(this, 'RecaptchaSecretName', {
-    //   value: recaptchaSecret.secretName,
-    //   description: 'Secret name for reCAPTCHA key'
-    // });
+    // Create a CloudFormation output for the Lambda function ARN
+    // This exposes the Lambda's unique identifier for reference in other systems or deployments
+    new cdk.CfnOutput(this, 'NewLambdaARN', {
+      value: contactFormLambda.functionArn,
+      description: 'ARN for the contact form Lambda function'
+    });
   }
 }

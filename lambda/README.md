@@ -84,11 +84,13 @@ To call this Lambda function from your Next.js application, use the AWS SDK:
 ```javascript
 import { LambdaClient, InvokeCommand } from "@aws-sdk/client-lambda";
 
-const lambdaClient = new LambdaClient({ region: "us-east-1" });
+// UPDATED: Use environment variable from CDK infrastructure
+const lambdaClient = new LambdaClient({ region: process.env.AWS_REGION || "us-east-1" });
 
 async function sendContactForm(formData) {
   const command = new InvokeCommand({
-    FunctionName: "portfolio-contact-form-handler",
+    // UPDATED: Get Lambda ARN from environment variable set by CDK
+    FunctionName: process.env.LAMBDA_FUNCTION_ARN || "portfolio-contact-form-handler",
     Payload: JSON.stringify(formData)
   });
   
