@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependencies
         run: |
           cd lambda/
-          npm ci
+          npm install
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2

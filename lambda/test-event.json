@@ -1,0 +1,6 @@
+{
+  "name": "Test User",
+  "email": "testuser@example.com",
+  "message": "This is a test message from the CLI. Please verify this email was sent successfully.",
+  "recaptchaToken": null
+}
