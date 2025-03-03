@@ -1,27 +1,26 @@
 # Portfolio Infrastructure
 
-This repository contains the AWS CDK infrastructure code for deploying a modern portfolio website with a serverless contact form system. The infrastructure follows AWS Well-Architected Framework principles to ensure operational excellence, security, reliability, performance efficiency, cost optimization, and sustainability.
+This repository contains the AWS CDK infrastructure code for deploying a modern portfolio website with a serverless contact form system. The infrastructure follows AWS Well-Architected Framework principles to ensure security, reliability, and cost optimization.
 
 ## Architecture Overview
 
 The portfolio infrastructure consists of the following components:
 
 - **AWS Amplify**: Hosts the Next.js portfolio website with CI/CD pipeline
-- **API Gateway**: Provides RESTful API endpoints for the contact form
-- **Lambda Function**: Processes contact form submissions
-<!-- - **DynamoDB**: Stores contact form data -->
+- **Lambda Function**: Processes contact form submissions directly from the Next.js frontend
 - **Amazon SES**: Sends email notifications for new contact submissions
-- **CloudWatch**: Monitors and logs infrastructure events
-- **AWS WAF**: Protects the application from common web exploits
-- **Secrets Manager**: Securely stores sensitive configuration
+- **IAM**: Manages permissions between services
+
+## Architecture Diagram
+
+![Portfolio Infrastructure Architecture](./docs/images/aws-portfolio-architecture.svg)
 
 ## Prerequisites
 
 - AWS CLI configured with appropriate permissions
-- Node.js (v14.x or later)
+- Node.js (v18.x or later)
 - AWS CDK Toolkit installed (`npm install -g aws-cdk`)
 - TypeScript knowledge
-- Git
 
 ## Project Structure
 
@@ -31,93 +30,134 @@ portfolio-infrastructure/
 ├── lib/                    # Stack definitions
 ├── test/                   # Unit tests
 ├── lambda/                 # Lambda function code
+│   ├── contact-form-handler.ts   # Lambda function implementation
+│   ├── deploy.sh           # Script for initial Lambda deployment
+│   ├── test-lambda.sh      # Script for testing the Lambda function
+│   └── view-logs.sh        # Script for viewing Lambda logs
+├── buildspec.yml           # AWS Amplify build configuration
 ├── cdk.json                # CDK configuration
-├── package.json            # Dependencies
-└── README.md               # Project documentation
+└── package.json            # Dependencies
 ```
 
-## Getting Started
+## AWS Services Configuration
+
+### AWS Amplify
+
+This project uses an existing Amplify app to host the Next.js portfolio website. The build process is configured to:
+- Install dependencies
+- Set up environment variables including the Lambda function ARN
+- Build the Next.js app
+- Export static files to the `out` directory
+
+### Lambda Function
+
+The contact form handler Lambda function:
+- Processes form submissions from the portfolio website
+- Validates form data with reCAPTCHA 
+- Sends email notifications using Amazon SES
+- Returns success/failure responses to the client
+
+Required environment variables:
+- `AWS_SES_EMAIL_FROM`: Verified SES sender email
+- `AWS_SES_EMAIL_TO`: Recipient email for notifications
+- `RECAPTCHA_SECRET_KEY`: reCAPTCHA verification secret
+
+### IAM Configuration
+
+The Lambda function uses a dedicated IAM role with:
+- `AmazonSESFullAccess` policy for sending emails
+- `AWSLambdaBasicExecutionRole` for CloudWatch logging
+- Permissions allowing Amplify to invoke the Lambda function
+
+## Deployment Instructions
+
+### CDK Infrastructure Deployment
 
 1. Clone the repository
 2. Install dependencies:
    ```
    npm install
    ```
-3. Configure environment variables in your AWS account or use AWS Secrets Manager
-
-4. Deploy the stack:
+3. Build the TypeScript:
    ```
    npm run build
+   ```
+4. Deploy the stack:
+   ```
    npx cdk deploy
    ```
 
-## Security Features
+### Lambda Function Deployment
 
-- API Gateway secured with API keys and proper IAM roles
-- WAF integration to protect against common web attacks
-- Secrets managed through AWS Secrets Manager
-- Principle of least privilege applied to all IAM roles
-- CloudTrail enabled for audit tracking
+For initial deployment of the Lambda function:
 
-## Monitoring and Reliability
+1. Navigate to the lambda directory:
+   ```
+   cd lambda
+   ```
+2. Run the deployment script:
+   ```
+   ./deploy.sh
+   ```
+3. When prompted, provide:
+   - SES sender email (must be verified in SES)
+   - SES recipient email
+   - reCAPTCHA secret key
 
-- CloudWatch alarms for critical metrics
-- Error handling with Dead Letter Queues
-- Automatic retry mechanisms
-- Comprehensive logging for troubleshooting
+## Integration with Next.js Frontend
 
-## Cost Optimization
+The Next.js application uses environment variables to connect with the Lambda function:
+- `LAMBDA_FUNCTION_ARN`: The ARN of the deployed Lambda function
+- The frontend uses the AWS SDK to directly invoke the Lambda function
 
-- Serverless architecture minimizes costs during low-traffic periods
-- Budget alerts configured
-- Resource tagging strategy implemented
-- Right-sized Lambda functions
+## Testing and Troubleshooting
 
-## Sustainability
+### Testing the Lambda Function
 
-- Infrastructure deployed in regions with lower carbon footprints
-- Automatic scaling to minimize resource usage
-- Efficient resource utilization patterns
+Use the provided test script:
+```
+cd lambda
+./test-lambda.sh
+```
+
+### Viewing Lambda Logs
+
+Use the provided script:
+```
+cd lambda
+./view-logs.sh
+```
+
+### Common Issues
+
+1. **Email not sending**: 
+   - Ensure SES sender email is verified
+   - Check if your AWS account is still in SES sandbox mode
+
+2. **Lambda permissions**:
+   - Verify the Lambda role has the correct policies attached
+   - For Amplify SSR to invoke Lambda, ensure the Amplify compute role has `lambda:InvokeFunction` permission
+   - Check CloudWatch logs for permission errors
+
+3. **reCAPTCHA verification**:
+   - Confirm the reCAPTCHA secret key is correct
+   - Ensure proper integration in the frontend
+
+## Environment Variables
+
+### CDK Infrastructure
+- `LAMBDA_FUNCTION_ARN`: ARN of the contact form Lambda function (passed to Amplify build)
+
+### Lambda Function
+- `AWS_SES_EMAIL_FROM`: Verified SES sender email
+- `AWS_SES_EMAIL_TO`: Recipient email for notifications
+- `RECAPTCHA_SECRET_KEY`: reCAPTCHA verification secret
 
 ## Useful Commands
 
-- `npm run build` Compile TypeScript to JavaScript
-- `npm run watch` Watch for changes and compile
-- `npm run test` Perform Jest unit tests
-- `npx cdk deploy` Deploy stack to your AWS account/region
-- `npx cdk diff` Compare deployed stack with current state
-- `npx cdk synth` Emit the synthesized CloudFormation template
-
-## Contact Form Integration
-
-The contact form works with the following flow:
-
-1. User submits the form on the portfolio website
-2. Form data is validated with reCAPTCHA
-3. Request is sent to API Gateway endpoint
-4. Lambda processes the submission
-5. Data is stored in DynamoDB
-6. Notification email is sent via SES
-7. Success/failure response returned to user
-
-## Maintenance and Updates
-
-To update the infrastructure:
-
-1. Make changes to the CDK code
-2. Run `npm run build` to compile
-3. Run `npx cdk diff` to see changes
-4. Run `npx cdk deploy` to deploy changes
-
-## Troubleshooting
-
-Common issues and their solutions:
-
-- Check CloudWatch Logs for Lambda errors
-- Verify API Gateway configuration
-- Ensure SES email addresses are verified
-- Check IAM permissions for services
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details
+- `npm run build` - Compile TypeScript to JavaScript
+- `npm run watch` - Watch for changes and compile
+- `npm run test` - Perform Jest unit tests
+- `npx cdk deploy` - Deploy stack to your AWS account/region
+- `npx cdk diff` - Compare deployed stack with current state
+- `npx cdk synth` - Emit the synthesized CloudFormation template
