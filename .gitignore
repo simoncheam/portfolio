@@ -8,3 +8,6 @@ node_modules
 cdk.out
 .env.local
 .env.production
+*.zip
+# ignore zip files in the lambda directory
+/lambda/*.zip
