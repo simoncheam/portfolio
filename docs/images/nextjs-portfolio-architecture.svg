@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720">
+  <!-- Background -->
+  <rect width="960" height="720" fill="#f7fafc"/>
+  
+  <!-- Title -->
+  <text x="480" y="40" font-family="Arial" font-size="26" font-weight="bold" text-anchor="middle" fill="#2d3748">Portfolio Website System Architecture</text>
+  
+  <!-- Client Side Box -->
+  <rect x="50" y="90" width="200" height="180" fill="#ebf8ff" stroke="#3182ce" stroke-width="2" rx="10" ry="10"/>
+  <text x="150" y="110" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#2b6cb0">Client Side</text>
+  
+  <!-- User Browser -->
+  <rect x="75" y="130" width="150" height="110" fill="#ffffff" stroke="#4299e1" stroke-width="2" rx="5" ry="5"/>
+  <text x="150" y="150" font-family="Arial" font-size="14" text-anchor="middle" fill="#2c5282">User Browser</text>
+  <text x="150" y="170" font-family="Arial" font-size="12" text-anchor="middle" fill="#2c5282">- Renders Next.js App</text>
+  <text x="150" y="190" font-family="Arial" font-size="12" text-anchor="middle" fill="#2c5282">- UI Interactions</text>
+  <text x="150" y="210" font-family="Arial" font-size="12" text-anchor="middle" fill="#2c5282">- Form Submission</text>
+  <text x="150" y="230" font-family="Arial" font-size="12" text-anchor="middle" fill="#2c5282">- reCAPTCHA Client</text>
+  
+  <!-- AWS Cloud Border -->
+  <rect x="50" y="290" width="860" height="380" fill="#f2f3f3" stroke="#232F3E" stroke-width="2" rx="10" ry="10"/>
+  <text x="120" y="310" font-family="Arial" font-size="16" font-weight="bold" fill="#232F3E">AWS Cloud</text>
+  
+  <!-- GitHub Repository -->
+  <rect x="50" y="90" width="200" height="60" fill="#f0fff4" stroke="#38a169" stroke-width="2" rx="5" ry="5" transform="translate(700, 0)"/>
+  <text x="800" y="110" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#2f855a">GitHub Repository</text>
+  <text x="800" y="130" font-family="Arial" font-size="12" text-anchor="middle" fill="#2f855a">Next.js Portfolio Source Code</text>
+  
+  <!-- CI/CD Pipeline -->
+  <path d="M 800,150 L 800,185 L 780,185 L 800,215 L 820,185 L 800,185" fill="#d6bcfa" stroke="#6b46c1" stroke-width="2"/>
+  <text x="840" y="190" font-family="Arial" font-size="14" text-anchor="middle" fill="#553c9a">CI/CD Pipeline</text>
+  
+  <!-- AWS Amplify Box -->
+  <rect x="700" y="230" width="200" height="250" fill="#feebcb" stroke="#dd6b20" stroke-width="2" rx="10" ry="10"/>
+  <text x="800" y="250" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#c05621">AWS Amplify</text>
+  
+  <!-- Build Process -->
+  <rect x="725" y="270" width="150" height="60" fill="#ffffff" stroke="#ed8936" stroke-width="1" rx="5" ry="5"/>
+  <text x="800" y="290" font-family="Arial" font-size="14" text-anchor="middle" fill="#c05621">Build Process</text>
+  <text x="800" y="310" font-family="Arial" font-size="11" text-anchor="middle" fill="#c05621">npm ci, build, export</text>
+  
+  <!-- Hosting -->
+  <rect x="725" y="350" width="150" height="60" fill="#ffffff" stroke="#ed8936" stroke-width="1" rx="5" ry="5"/>
+  <text x="800" y="370" font-family="Arial" font-size="14" text-anchor="middle" fill="#c05621">Hosting</text>
+  <text x="800" y="390" font-family="Arial" font-size="11" text-anchor="middle" fill="#c05621">Static + SSR + Serverless</text>
+  
+  <!-- Environment Vars -->
+  <rect x="725" y="430" width="150" height="40" fill="#feebc8" stroke="#ed8936" stroke-width="1" rx="5" ry="5"/>
+  <text x="800" y="455" font-family="Arial" font-size="12" text-anchor="middle" fill="#c05621">Environment Variables</text>
+  
+  <!-- Next.js App Structure -->
+  <rect x="300" y="90" width="330" height="180" fill="#e6fffa" stroke="#319795" stroke-width="2" rx="10" ry="10"/>
+  <text x="465" y="110" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c7a7b">Next.js App Structure</text>
+  
+  <!-- App Components -->
+  <rect x="320" y="130" width="120" height="120" fill="#ffffff" stroke="#38b2ac" stroke-width="1" rx="5" ry="5"/>
+  <text x="380" y="150" font-family="Arial" font-size="14" text-anchor="middle" fill="#2c7a7b">Components</text>
+  <text x="380" y="170" font-family="Arial" font-size="11" text-anchor="middle" fill="#2c7a7b">UI Components</text>
+  <text x="380" y="190" font-family="Arial" font-size="11" text-anchor="middle" fill="#2c7a7b">Section Components</text>
+  <text x="380" y="210" font-family="Arial" font-size="11" text-anchor="middle" fill="#2c7a7b">contact-form.tsx</text>
+  <text x="380" y="230" font-family="Arial" font-size="11" text-anchor="middle" fill="#2c7a7b">reusable elements</text>
+  
+  <!-- App Router -->
+  <rect x="460" y="130" width="150" height="120" fill="#ffffff" stroke="#38b2ac" stroke-width="1" rx="5" ry="5"/>
+  <text x="535" y="150" font-family="Arial" font-size="14" text-anchor="middle" fill="#2c7a7b">App Router</text>
+  <text x="535" y="170" font-family="Arial" font-size="11" text-anchor="middle" fill="#2c7a7b">app/page.tsx</text>
+  <text x="535" y="190" font-family="Arial" font-size="11" text-anchor="middle" fill="#2c7a7b">app/layout.tsx</text>
+  <text x="535" y="210" font-family="Arial" font-size="11" text-anchor="middle" fill="#2c7a7b">utils/actions.ts</text>
+  <text x="535" y="230" font-family="Arial" font-size="11" font-weight="bold" text-anchor="middle" fill="#2c7a7b">Server Actions</text>
+  
+  <!-- AWS Lambda Box -->
+  <rect x="350" y="335" width="230" height="140" fill="#e9d8fd" stroke="#805ad5" stroke-width="2" rx="10" ry="10"/>
+  <text x="465" y="355" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#553c9a">AWS Lambda</text>
+  
+  <!-- Lambda Function -->
+  <rect x="375" y="375" width="180" height="80" fill="#ffffff" stroke="#6b46c1" stroke-width="1" rx="5" ry="5"/>
+  <text x="465" y="395" font-family="Arial" font-size="14" text-anchor="middle" fill="#553c9a">Contact Form Handler</text>
+  <text x="465" y="415" font-family="Arial" font-size="11" text-anchor="middle" fill="#553c9a">- Form Validation</text>
+  <text x="465" y="435" font-family="Arial" font-size="11" text-anchor="middle" fill="#553c9a">- reCAPTCHA Verification</text>
+  <text x="465" y="455" font-family="Arial" font-size="11" text-anchor="middle" fill="#553c9a">- Error Handling</text>
+  
+  <!-- AWS SES Box -->
+  <rect x="350" y="495" width="230" height="140" fill="#fed7d7" stroke="#e53e3e" stroke-width="2" rx="10" ry="10"/>
+  <text x="465" y="515" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#c53030">Amazon SES</text>
+  
+  <!-- SES Function -->
+  <rect x="375" y="535" width="180" height="80" fill="#ffffff" stroke="#f56565" stroke-width="1" rx="5" ry="5"/>
+  <text x="465" y="555" font-family="Arial" font-size="14" text-anchor="middle" fill="#c53030">Email Service</text>
+  <text x="465" y="575" font-family="Arial" font-size="11" text-anchor="middle" fill="#c53030">- Format Email</text>
+  <text x="465" y="595" font-family="Arial" font-size="11" text-anchor="middle" fill="#c53030">- Send Email</text>
+  <text x="465" y="615" font-family="Arial" font-size="11" text-anchor="middle" fill="#c53030">- Delivery Confirmation</text>
+  
+  <!-- IAM Roles Box -->
+  <rect x="100" y="410" width="160" height="160" fill="#e6fffa" stroke="#319795" stroke-width="2" rx="10" ry="10"/>
+  <text x="180" y="430" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c7a7b">IAM Roles/Policies</text>
+  
+  <!-- IAM Role Components -->
+  <rect x="120" y="450" width="120" height="100" fill="#ffffff" stroke="#38b2ac" stroke-width="1" rx="5" ry="5"/>
+  <text x="180" y="470" font-family="Arial" font-size="12" text-anchor="middle" fill="#2c7a7b">Security</text>
+  <text x="180" y="490" font-family="Arial" font-size="10" text-anchor="middle" fill="#2c7a7b">- Amplify Role</text>
+  <text x="180" y="510" font-family="Arial" font-size="10" text-anchor="middle" fill="#2c7a7b">- Lambda Role</text>
+  <text x="180" y="530" font-family="Arial" font-size="10" text-anchor="middle" fill="#2c7a7b">- SES Permissions</text>
+  <text x="180" y="550" font-family="Arial" font-size="10" text-anchor="middle" fill="#2c7a7b">- reCAPTCHA</text>
+  
+  <!-- Data Flow Arrows -->
+  <!-- User to App -->
+  <line x1="150" y1="240" x2="150" y2="290" stroke="#3182ce" stroke-width="3" marker-end="url(#arrowhead-blue)"/>
+  <text x="120" y="270" font-family="Arial" font-size="10" fill="#3182ce">1. Visit Site</text>
+  
+  <!-- GitHub to Amplify -->
+  <line x1="800" y1="150" x2="800" y2="230" stroke="#6b46c1" stroke-width="3" marker-end="url(#arrowhead-purple)"/>
+  <text x="810" y="200" font-family="Arial" font-size="10" fill="#6b46c1">Deploy</text>
+  
+  <!-- Server Action to Lambda -->
+  <path d="M 535,250 L 535,290 L 465,290 L 465,335" fill="none" stroke="#553c9a" stroke-width="3" marker-end="url(#arrowhead-purple)"/>
+  <text x="545" y="290" font-family="Arial" font-size="10" fill="#553c9a">3. Invoke Lambda</text>
+  
+  <!-- Form Submit Flow -->
+  <path d="M 150,240 C 150,270 380,270 380,250" fill="none" stroke="#3182ce" stroke-width="3" marker-end="url(#arrowhead-blue)"/>
+  <text x="250" y="260" font-family="Arial" font-size="10" fill="#3182ce">2. Submit Form</text>
+  
+  <!-- Lambda to SES -->
+  <line x1="465" y1="475" x2="465" y2="495" stroke="#805ad5" stroke-width="3" marker-end="url(#arrowhead-purple)"/>
+  <text x="475" y="485" font-family="Arial" font-size="10" fill="#805ad5">4. Send Email</text>
+  
+  <!-- Response back to UI -->
+  <path d="M 465,335 C 300,310 250,250 150,240" fill="none" stroke="#805ad5" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrowhead-purple)"/>
+  <text x="300" y="330" font-family="Arial" font-size="10" fill="#805ad5">5. Response</text>
+  
+  <!-- IAM Permissions Arrows -->
+  <line x1="260" y1="490" x2="350" y2="405" stroke="#319795" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowhead-teal)"/>
+  <text x="290" y="435" font-family="Arial" font-size="10" fill="#319795">Permissions</text>
+  
+  <line x1="260" y1="510" x2="350" y2="565" stroke="#319795" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowhead-teal)"/>
+  <text x="290" y="550" font-family="Arial" font-size="10" fill="#319795">Permissions</text>
+  
+  <line x1="725" y1="450" x2="580" y2="405" stroke="#ed8936" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowhead-orange)"/>
+  <text x="640" y="415" font-family="Arial" font-size="10" fill="#ed8936">Env Variables</text>
+  
+  <!-- Amplify to Frontend Service -->
+  <path d="M 725,380 C 650,380 650,200 580,200" fill="none" stroke="#ed8936" stroke-width="3" marker-end="url(#arrowhead-orange)"/>
+  <text x="640" y="350" font-family="Arial" font-size="10" fill="#ed8936">Static Assets</text>
+  
+  <!-- Legend -->
+  <rect x="100" y="670" width="760" height="40" fill="#f7fafc" stroke="#4a5568" stroke-width="1" rx="5" ry="5"/>
+  <text x="480" y="690" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold" fill="#2d3748">System Boundaries Legend</text>
+  
+  <rect x="150" y="695" width="20" height="10" fill="#ebf8ff" stroke="#3182ce" stroke-width="1"/>
+  <text x="190" y="703" font-family="Arial" font-size="10" fill="#2d3748">Client-Side</text>
+  
+  <rect x="250" y="695" width="20" height="10" fill="#e6fffa" stroke="#319795" stroke-width="1"/>
+  <text x="290" y="703" font-family="Arial" font-size="10" fill="#2d3748">Next.js App</text>
+  
+  <rect x="350" y="695" width="20" height="10" fill="#f2f3f3" stroke="#232F3E" stroke-width="1"/>
+  <text x="390" y="703" font-family="Arial" font-size="10" fill="#2d3748">AWS Cloud</text>
+  
+  <rect x="450" y="695" width="20" height="10" fill="#e9d8fd" stroke="#805ad5" stroke-width="1"/>
+  <text x="490" y="703" font-family="Arial" font-size="10" fill="#2d3748">Serverless Function</text>
+  
+  <rect x="550" y="695" width="20" height="10" fill="#fed7d7" stroke="#e53e3e" stroke-width="1"/>
+  <text x="590" y="703" font-family="Arial" font-size="10" fill="#2d3748">Email Service</text>
+  
+  <rect x="650" y="695" width="20" height="10" fill="#feebcb" stroke="#dd6b20" stroke-width="1"/>
+  <text x="690" y="703" font-family="Arial" font-size="10" fill="#2d3748">Deployment/Hosting</text>
+  
+  <!-- Arrow Head Markers -->
+  <defs>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="7"
+    refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3182ce"/>
+    </marker>
+    <marker id="arrowhead-purple" markerWidth="10" markerHeight="7"
+    refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#805ad5"/>
+    </marker>
+    <marker id="arrowhead-teal" markerWidth="10" markerHeight="7"
+    refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#319795"/>
+    </marker>
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="7"
+    refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#dd6b20"/>
+    </marker>
+  </defs>
+</svg>
