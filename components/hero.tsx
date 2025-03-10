@@ -37,14 +37,15 @@ const Hero = () => {
         </div>
       </RoughNotationGroup>
       {/* //TODO: update*/}
-      {/* <p className='mb-8 max-w-2xl text-sm sm:text-base'>
-        Passionate about creating efficient, scalable solutions and bringing ideas to life through code.
-      </p> */}
+      <p className='mb-4 max-w-2xl text-sm sm:text-base'>
+        Building Scalable Web Solutions to Drive Your Business Forward.
+        {/* Passionate about creating efficient, scalable solutions and bringing ideas to life through code. */}
+      </p>
 
       <Button
         asChild
         className={`px-8 py-4 text-lg font-semibold rounded-lg mt-8 mb-4 bg-yellow-500 hover:bg-yellow-600 text-black`}>
-        <a href='#contact'>Get in Touch</a>
+        <a href='#contact'>Let&apos;s Discuss Your Project</a>
       </Button>
     </div>
   );

@@ -35,8 +35,8 @@ const About = () => {
           massive value to everyone involved on the project.
         </p>
         <p className='text-lg text-muted-foreground'>
-          As a Full Stack Developer with experience in React, Next.js, and cloud services, I excel at rapidly solving
-          technical challenges and delivering business value.
+          As a Full Stack Developer specializing in AI-enhanced workflows and AWS serverless architecture, I build
+          cutting-edge web applications that leverage artificial intelligence to solve complex business problems.
         </p>
 
         <div className='mt-8'>
