@@ -1,8 +1,46 @@
-import { ProjectCard } from './project-card';
+import { ProjectCard } from './project-card/project-card';
 
-const projects = [
+// creater projects interface
+interface Project {
+  title: string;
+  description: string;
+  imgUrl: string;
+  techStack: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  featured?: boolean;
+}
+
+const projects: Project[] = [
   {
-    title: 'NextBnB: Airbnb Clone',
+    title: 'Cost-Optimized RAG Chatbot',
+    description:
+      'Intelligent portfolio assistant with advanced retrieval-augmented generation. Engineered $4,200 annual cost savings through strategic AWS service optimization while delivering enterprise-grade performance.',
+    imgUrl: '/images/rag-ai-portfolio-thumbnail.png',
+    techStack: ['AWS Bedrock', 'OpenSearch', 'Lambda', 'Next.js 15', 'TypeScript', 'AWS CDK', 'DynamoDB', 'Cognito'],
+    liveUrl: 'https://ai-portfolio-chatbot.vercel.app',
+    featured: true,
+  },
+  {
+    title: 'Local Business Subscription Platform',
+    description:
+      'Full-stack subscription platform connecting members with local businesses. Features automated coupon system, Stripe payments, and role-based access, reducing operational overhead by 90%.',
+    imgUrl: '/images/membership-platform.png',
+    techStack: ['Next.js 14', 'PostgreSQL', 'Prisma', 'Clerk', 'Stripe', 'Vercel', 'Supabase', 'TypeScript'],
+    liveUrl: 'https://pinellas-perks-mvp.vercel.app/',
+    featured: true,
+  },
+  {
+    title: 'Portfolio Website with AWS Serverless Backend',
+    description:
+      'Modern responsive portfolio with serverless contact form processing. Template architecture reused for multiple projects, reducing setup time by 50%+.',
+    imgUrl: '/images/portfolio-aws.png',
+    techStack: ['Next.js', 'AWS Lambda', 'SES', 'CDK', 'Amplify', 'GitHub Actions'],
+    githubUrl: 'https://github.com/simoncheam/portfolio',
+    liveUrl: 'https://www.simoncheam.dev',
+  },
+  {
+    title: 'NextBnB: Full-Stack Vacation Rental Platform',
     description:
       'A fully responsive vacation rental platform using Next.js 14, integrating TailwindCSS, Shadcn/UI, and Supabase for dynamic user interfaces and robust backend support.',
     imgUrl: '/images/nextbnb.png',
@@ -60,8 +98,8 @@ const Projects = () => {
       id='projects'
       className='py-16 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
       <h2 className='text-3xl sm:text-4xl font-bold mb-12 text-center'>Projects</h2>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-        {projects.map((project, index) => (
+      <div className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-8 max-w-8xl mx-auto'>
+        {projects.map((project: Project, index: number) => (
           <ProjectCard
             key={index}
             {...project}

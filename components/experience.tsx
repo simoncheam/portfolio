@@ -2,17 +2,24 @@ import { CalendarDays, Briefcase, MapPin } from 'lucide-react';
 
 const experiences = [
   {
-    company: 'jemini.io',
+    company: 'simoncheam.dev',
     role: 'FULL STACK ENGINEER | CONSULTANT',
-    period: '08/2023 - 08/2024',
+    period: '01/2021 - Present',
     location: 'Remote',
     responsibilities: [
-      'Collaborated directly with clients to gather requirements by conducting discovery sessions and workshops to ensure alignment between business needs and technical deliverables',
-      'Built manufacturing process inspection UI with React, improving workflow efficiency and production quality',
-      'Developed Server-Sent Event handling for improved performance with GraphQL and NestJS endpoint integration',
-      'Created error monitoring service using Bash and Slack, improving system response times',
-      'Enhanced client efficiency through AI-based tools, automated CSV parsing and data enrichment with a phone scraper built with Python and TypeScript',
+      'Built AI-enabled applications with modern frameworks, databases, and AWS cloud services',
+      'Streamlined project delivery through AI-assisted spec generation and modular development workflows',
+      'Developed Serverless RAG chatbot with AWS Bedrock, including hallucination safeguards and cost-optimization',
     ],
+    keyClient: {
+      name: 'Jemini.io',
+      period: '08/2023 - 08/2024',
+      achievements: [
+        'Led discovery workshops to uncover bottlenecks, aligning dev roadmap with business goals — directly increased client acquisition via optimized content ops',
+        'Built a custom React-based process inspection dashboard, reduced inspection time by ~30%',
+        'Enhanced client and development efficiency through AI-based tools and workflows',
+      ]
+    }
   },
   {
     company: 'linklive.ai',
@@ -20,10 +27,10 @@ const experiences = [
     period: '08/2022 - 05/2023',
     location: 'Remote',
     responsibilities: [
-      'Collaborated cross-functionally with developers, UX designers, and QA engineers to implement new features',
-      'Developed a mobile responsive scheduling UI using Ionic & Angular, enhancing user experience',
-      'Built customer engagement platform enhancements including drag-and-drop features for chat functionalities',
-      'Improved user experience by debugging and resolving a backlog of legacy code issues',
+      'Drove cross-functional feature implementation, coordinating efforts between UX designers, developers, and QA engineers',
+      'Built mobile responsive scheduling UI with Ionic & Angular',
+      'Enhanced customer chat platform with drag-and-drop components',
+      'Resolved 20+ critical legacy bugs improving UX, system stability and reducing support tickets',
     ],
   },
   {
@@ -87,6 +94,18 @@ const Experience = () => {
                 <li key={respIndex}>{resp}</li>
               ))}
             </ul>
+            {exp.keyClient && (
+              <div className='mt-6 pl-4 border-l-2 border-primary/20'>
+                <div className='font-medium text-primary mb-2'>
+                  Key Client: {exp.keyClient.name} ({exp.keyClient.period})
+                </div>
+                <ul className='list-disc list-outside text-muted-foreground ml-4 space-y-2'>
+                  {exp.keyClient.achievements.map((achievement, achIndex) => (
+                    <li key={achIndex}>{achievement}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <div className='absolute left-0 top-0 h-full w-px bg-border sm:left-20 sm:ml-px' />
             <div className='absolute left-0 top-8 h-4 w-4 rounded-full border-2 border-primary bg-background sm:left-20 sm:ml-px' />
           </div>
