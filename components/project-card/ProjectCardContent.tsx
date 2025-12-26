@@ -5,17 +5,17 @@ interface ProjectCardContentProps {
 
 export function ProjectCardContent({ title, description }: ProjectCardContentProps) {
   return (
-    <div className='space-y-4'>
-      {/* Title with min height for consistency (accommodates ~2 lines) */}
-      <h3 className='text-xl font-semibold leading-tight min-h-[4.5rem]'>
-        {title}
-      </h3>
-      
+    <div>
+      {/* Title with min height for consistency */}
+      <div className='min-h-[3.5rem] md:min-h-[4rem]'>
+        <h3 className='text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight line-clamp-2'>
+          {title}
+        </h3>
+      </div>
+
       {/* Description with min height for consistency */}
-      <div className='min-h-[10rem]'>
-        <p className='text-muted-foreground text-sm leading-relaxed'>
-          {description}
-        </p>
+      <div className='mt-2 min-h-[6rem] md:min-h-[7.5rem]'>
+        <p className='text-sm md:text-base text-muted-foreground leading-relaxed line-clamp-4'>{description}</p>
       </div>
     </div>
   );

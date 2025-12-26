@@ -1,6 +1,5 @@
 import { ProjectCard } from './project-card/project-card';
 
-// creater projects interface
 interface Project {
   title: string;
   description: string;
@@ -8,6 +7,7 @@ interface Project {
   techStack: string[];
   githubUrl?: string;
   liveUrl?: string;
+  caseStudyUrl?: string;
   featured?: boolean;
 }
 
@@ -28,6 +28,7 @@ const projects: Project[] = [
     imgUrl: '/images/membership-platform.png',
     techStack: ['Next.js 14', 'PostgreSQL', 'Prisma', 'Clerk', 'Stripe', 'Vercel', 'Supabase', 'TypeScript'],
     liveUrl: 'https://pinellas-perks-mvp.vercel.app/',
+    caseStudyUrl: 'https://medium.com/@simon_59622/we-built-a-50k-app-then-got-ghosted-lessons-in-trust-teamwork-and-integrity-887009a3edbf',
     featured: true,
   },
   {
@@ -74,37 +75,38 @@ const projects: Project[] = [
     githubUrl: 'https://github.com/simoncheam/lambda-cicd',
     liveUrl: '',
   },
-  // {
-  //   title: 'Momentum: Life Purpose App',
-  //   description: 'Full stack CRUD App for user clarity and momentum towards life purpose.',
-  //   imgUrl: '/placeholder.svg',
-  //   techStack: ['React', 'Node.js', 'Express', 'MongoDB'],
-  //   githubUrl: 'https://github.com/simoncheam/ultimate-life-purpose',
-  //   liveUrl: 'https://ultimate-life-purpose.herokuapp.com/status',
-  // },
-  // {
-  //   title: 'Personal Blogs App',
-  //   description: 'Full stack CRUD App with search function and author private routes for members.',
-  //   imgUrl: '/placeholder.svg',
-  //   techStack: ['React', 'Node.js', 'Express', 'MongoDB'],
-  //   githubUrl: 'https://github.com/simoncheam/personal-blogs-app',
-  //   liveUrl: 'https://personal-blogs-app.herokuapp.com/status',
-  // },
 ];
 
 const Projects = () => {
+  const projectCount = projects.length.toString().padStart(2, '0');
+
   return (
     <section
       id='projects'
-      className='py-16 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-      <h2 className='text-3xl sm:text-4xl font-bold mb-12 text-center'>Projects</h2>
-      <div className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-8 max-w-8xl mx-auto'>
+      className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24'>
+      {/* Section Header */}
+      <div className='flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4'>
+        <div className='space-y-4'>
+          <h2 className='text-3xl md:text-4xl font-bold tracking-tight'>Selected Projects</h2>
+          <p className='text-muted-foreground max-w-xl'>
+            A showcase of full-stack applications combining robust cloud infrastructure with modern web technologies.
+          </p>
+        </div>
+        <div className='hidden md:block h-px flex-grow mx-8 bg-border'></div>
+        <div className='text-sm font-mono text-muted-foreground'>[{projectCount}] PROJECTS</div>
+      </div>
+
+      {/* Projects Grid */}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
         {projects.map((project: Project, index: number) => (
-          <ProjectCard
+          <div
             key={index}
-            {...project}
-            number={index + 1}
-          />
+            className={project.featured ? 'md:col-span-1 lg:col-span-1' : ''}>
+            <ProjectCard
+              {...project}
+              number={index + 1}
+            />
+          </div>
         ))}
       </div>
     </section>

@@ -1,8 +1,13 @@
-import { Card, CardContent } from './ui/card';
-import { Badge } from './ui/badge';
-import { CloudIcon as Aws } from 'lucide-react';
+import { Award, ExternalLink } from 'lucide-react';
 
-const certifications = [
+interface Certification {
+  name: string;
+  code: string;
+  date: string;
+  url: string;
+}
+
+const certifications: Certification[] = [
   {
     name: 'AWS Certified Cloud Practitioner',
     code: 'CLF-C02',
@@ -19,31 +24,54 @@ const certifications = [
 
 export function Certifications() {
   return (
-    <section className='py-16 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
-      <h2 className='text-3xl sm:text-4xl font-bold mb-8 text-center'>AWS Certifications</h2>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-        {certifications.map((cert, index) => (
+    <section
+      id='certifications'
+      className='max-w-4xl mx-auto px-4 text-center scroll-mt-24'>
+      {/* Section Header */}
+      <div className='space-y-2 mb-12'>
+        <h2 className='text-3xl font-bold tracking-tight'>Verified Expertise</h2>
+        <p className='text-muted-foreground'>Certified in building secure and high-performance cloud architectures.</p>
+      </div>
+
+      {/* Certification Cards */}
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
+        {certifications.map((cert, i) => (
           <a
-            key={index}
+            key={i}
             href={cert.url}
             target='_blank'
             rel='noopener noreferrer'
-            className='group'>
-            <Card className='h-full transition-all duration-300 hover:shadow-lg hover:border-primary'>
-              <CardContent className='p-6 flex items-start space-x-4'>
-                <div className='flex-shrink-0'>
-                  <Aws className='h-10 w-10 text-[#FF9900] group-hover:text-[#FF9900]/80 transition-colors' />
+            className='group relative block bg-card border border-border p-6 rounded-2xl transition-all hover:border-primary/50 hover:shadow-xl hover:-translate-y-1 overflow-hidden'>
+            {/* Background Decoration */}
+            <div className='absolute top-[-20px] right-[-20px] opacity-5 transition-transform group-hover:scale-125 duration-700'>
+              <Award className='w-32 h-32' />
+            </div>
+
+            {/* Content */}
+            <div className='flex items-start gap-5 relative z-10'>
+              {/* Icon */}
+              <div className='flex-shrink-0 w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 shadow-inner'>
+                <Award className='w-7 h-7 text-primary group-hover:scale-110 transition-transform' />
+              </div>
+
+              {/* Details */}
+              <div className='flex-grow text-left'>
+                <h3 className='font-bold text-lg mb-2 text-foreground group-hover:text-primary transition-colors leading-tight'>
+                  {cert.name}
+                </h3>
+                <div className='flex flex-wrap items-center gap-3 mb-4'>
+                  <span className='text-[10px] font-mono font-bold uppercase tracking-wider bg-primary/10 text-primary px-2 py-1 rounded border border-primary/20'>
+                    {cert.code}
+                  </span>
+                  <span className='text-xs text-muted-foreground flex items-center gap-1 font-medium'>
+                    Issued {cert.date}
+                  </span>
                 </div>
-                <div className='flex-grow'>
-                  <h3 className='font-semibold text-lg mb-2 group-hover:text-primary transition-colors'>{cert.name}</h3>
-                  <div className='flex items-center space-x-2 mb-2'>
-                    <Badge variant='secondary'>{cert.code}</Badge>
-                    <span className='text-sm text-muted-foreground'>{cert.date}</span>
-                  </div>
-                  <p className='text-sm text-muted-foreground'>Click to view credential</p>
+                <div className='flex items-center gap-1 text-xs font-semibold text-muted-foreground group-hover:text-foreground transition-colors'>
+                  View Credentials <ExternalLink className='w-3 h-3' />
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </a>
         ))}
       </div>

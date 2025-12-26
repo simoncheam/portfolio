@@ -10,42 +10,57 @@ interface ProjectCardProps {
   techStack: string[];
   githubUrl?: string;
   liveUrl?: string;
+  caseStudyUrl?: string;
   number: number;
   featured?: boolean;
 }
 
-export function ProjectCard({ title, description, imgUrl, techStack, githubUrl, liveUrl, number, featured }: ProjectCardProps) {
+export function ProjectCard({
+  title,
+  description,
+  imgUrl,
+  techStack,
+  githubUrl,
+  liveUrl,
+  caseStudyUrl,
+  number,
+  featured,
+}: ProjectCardProps) {
   return (
-    <div className='group flex flex-col h-full border rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl bg-card'>
-      
+    <div
+      className={`group relative flex flex-col h-full bg-card rounded-2xl overflow-hidden border border-border shadow-sm transition-all duration-500 hover:shadow-2xl hover:border-primary/40 hover:-translate-y-2 ${
+        featured
+          ? 'border-primary/30 ring-1 ring-primary/5 bg-gradient-to-br from-card to-primary/[0.03]'
+          : ''
+      }`}>
       {/* HEADER: Image + overlays */}
-      <ProjectCardHeader 
+      <ProjectCardHeader
         imgUrl={imgUrl}
         title={title}
         number={number}
         featured={featured}
       />
-      
+
       {/* CONTENT: Main card content */}
-      <div className='flex flex-col p-6 flex-grow'>
-        {/* Title and Description - Fixed height zone */}
-        <div className='mb-6'>
-          <ProjectCardContent title={title} description={description} />
-        </div>
-        
-        {/* Tech Stack - Flexible but consistent position */}
-        <div className='flex-grow'>
+      <div className='flex flex-col p-6 md:p-8 flex-grow'>
+        {/* Title and Description */}
+        <ProjectCardContent
+          title={title}
+          description={description}
+        />
+
+        {/* Tech Stack */}
+        <div className='mt-auto pt-6 mb-6'>
           <ProjectCardTechStack techStack={techStack} />
         </div>
-        
-        {/* Actions - Always at bottom */}
-        <div className='mt-6'>
-          <ProjectCardActions 
-            liveUrl={liveUrl}
-            githubUrl={githubUrl}
-            title={title}
-          />
-        </div>
+
+        {/* Actions */}
+        <ProjectCardActions
+          liveUrl={liveUrl}
+          githubUrl={githubUrl}
+          caseStudyUrl={caseStudyUrl}
+          title={title}
+        />
       </div>
     </div>
   );

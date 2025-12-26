@@ -35,7 +35,7 @@ const About = () => {
           massive value to everyone involved on the project.
         </p>
         <p className='text-lg text-muted-foreground'>
-          As a Full Stack Developer specializing in AI-enhanced workflows and AWS serverless architecture, I build
+          As a Full Stack Developer specializing in AI-enhanced workflows and agentic engineering architecture, I build
           cutting-edge web applications that leverage artificial intelligence to solve complex business problems.
         </p>
 

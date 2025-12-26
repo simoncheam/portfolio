@@ -55,6 +55,29 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		fontFamily: {
+  			sans: ['var(--font-sans)', 'Plus Jakarta Sans', 'Inter', 'sans-serif'],
+  			mono: ['var(--font-mono)', 'JetBrains Mono', 'monospace']
+  		},
+  		animation: {
+  			'fade-up': 'fadeUp 0.8s ease-out forwards',
+  			'pulse-soft': 'pulseSoft 4s ease-in-out infinite',
+  			'float': 'float 6s ease-in-out infinite',
+  		},
+  		keyframes: {
+  			fadeUp: {
+  				'0%': { opacity: '0', transform: 'translateY(20px)' },
+  				'100%': { opacity: '1', transform: 'translateY(0)' },
+  			},
+  			pulseSoft: {
+  				'0%, 100%': { opacity: '0.2' },
+  				'50%': { opacity: '0.4' },
+  			},
+  			float: {
+  				'0%, 100%': { transform: 'translateY(0px)' },
+  				'50%': { transform: 'translateY(-20px)' },
+  			}
   		}
   	}
   },

@@ -8,7 +8,7 @@ import { Certifications } from '@/components/certifications';
 
 export default function Home() {
   return (
-    <main className='flex min-h-screen flex-col items-center justify-between py-16 px-4 sm:px-8 md:px-16'>
+    <main className='flex min-h-screen flex-col items-center space-y-24 md:space-y-32 pt-24 pb-32'>
       <Hero />
       <About />
       <Certifications />

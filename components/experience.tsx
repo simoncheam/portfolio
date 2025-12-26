@@ -1,6 +1,19 @@
-import { CalendarDays, Briefcase, MapPin } from 'lucide-react';
+import { Calendar, CheckCircle2 } from 'lucide-react';
 
-const experiences = [
+interface ExperienceItem {
+  company: string;
+  role: string;
+  period: string;
+  location: string;
+  responsibilities: string[];
+  keyClient?: {
+    name: string;
+    period: string;
+    achievements: string[];
+  };
+}
+
+const experiences: ExperienceItem[] = [
   {
     company: 'simoncheam.dev',
     role: 'FULL STACK ENGINEER | CONSULTANT',
@@ -18,8 +31,8 @@ const experiences = [
         'Led discovery workshops to uncover bottlenecks, aligning dev roadmap with business goals — directly increased client acquisition via optimized content ops',
         'Built a custom React-based process inspection dashboard, reduced inspection time by ~30%',
         'Enhanced client and development efficiency through AI-based tools and workflows',
-      ]
-    }
+      ],
+    },
   },
   {
     company: 'linklive.ai',
@@ -65,49 +78,88 @@ const Experience = () => {
   return (
     <section
       id='experience'
-      className='py-16 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
-      <h2 className='text-3xl sm:text-4xl font-bold mb-12 text-center'>Experience</h2>
-      <div className='space-y-12'>
-        {experiences.map((exp, index) => (
+      className='max-w-4xl mx-auto px-4 scroll-mt-24'>
+      {/* Section Header */}
+      <div className='text-center mb-20 space-y-4'>
+        <h2 className='text-sm font-mono font-bold text-primary uppercase tracking-[0.2em]'>Professional Journey</h2>
+        <h3 className='text-4xl md:text-5xl font-black tracking-tight'>Experience Timeline</h3>
+      </div>
+
+      {/* Timeline */}
+      <div className='relative space-y-16'>
+        {/* Vertical Line */}
+        <div className='absolute left-4 sm:left-1/2 top-4 bottom-0 w-px bg-border -translate-x-1/2 hidden sm:block'></div>
+
+        {experiences.map((exp, i) => (
           <div
-            key={index}
-            className='relative pl-8 sm:pl-32 py-6 group'>
-            <div className='font-medium text-xl mb-2'>{exp.role}</div>
-            <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4'>
-              <span className='flex items-center text-muted-foreground'>
-                <Briefcase className='h-4 w-4 mr-2' />
-                {exp.company}
-              </span>
-              <span className='hidden sm:inline text-muted-foreground'>•</span>
-              <span className='flex items-center text-muted-foreground'>
-                <CalendarDays className='h-4 w-4 mr-2' />
-                {exp.period}
-              </span>
-              <span className='hidden sm:inline text-muted-foreground'>•</span>
-              <span className='flex items-center text-muted-foreground'>
-                <MapPin className='h-4 w-4 mr-2' />
-                {exp.location}
-              </span>
+            key={i}
+            className={`relative flex flex-col sm:flex-row gap-8 sm:gap-12 ${
+              i % 2 === 0 ? 'sm:flex-row-reverse text-left' : 'text-left'
+            }`}>
+            {/* Timeline Dot */}
+            <div className='absolute left-4 sm:left-1/2 top-6 w-8 h-8 rounded-full bg-background border border-border -translate-x-1/2 hidden sm:flex items-center justify-center z-10 shadow-sm'>
+              <div className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-primary animate-pulse' : 'bg-muted-foreground/30'}`}></div>
             </div>
-            <ul className='list-disc list-outside text-muted-foreground ml-4 space-y-2'>
-              {exp.responsibilities.map((resp, respIndex) => (
-                <li key={respIndex}>{resp}</li>
-              ))}
-            </ul>
-            {exp.keyClient && (
-              <div className='mt-6 pl-4 border-l-2 border-primary/20'>
-                <div className='font-medium text-primary mb-2'>
-                  Key Client: {exp.keyClient.name} ({exp.keyClient.period})
+
+            {/* Card */}
+            <div className='w-full sm:w-[45%] group'>
+              <div className='relative bg-card border border-border p-8 rounded-3xl shadow-sm transition-all duration-300 hover:shadow-xl hover:border-primary/30'>
+                {/* Period Badge */}
+                <div className='inline-flex items-center gap-2 text-[10px] font-mono font-black text-primary uppercase tracking-widest mb-4 bg-primary/5 px-3 py-1 rounded-full border border-primary/10'>
+                  <Calendar className='w-3 h-3' />
+                  {exp.period}
                 </div>
-                <ul className='list-disc list-outside text-muted-foreground ml-4 space-y-2'>
-                  {exp.keyClient.achievements.map((achievement, achIndex) => (
-                    <li key={achIndex}>{achievement}</li>
+
+                {/* Role */}
+                <h4 className='text-xl md:text-2xl font-black text-foreground mb-1'>{exp.role}</h4>
+
+                {/* Company & Location */}
+                <div className='flex flex-wrap items-center gap-2 text-sm text-muted-foreground mb-6'>
+                  <span className='font-bold text-foreground/70'>{exp.company}</span>
+                  <span className='text-muted-foreground/50'>•</span>
+                  <span>{exp.location}</span>
+                  {exp.keyClient && (
+                    <span className='px-1.5 py-0.5 rounded-md bg-secondary text-secondary-foreground text-[8px] font-black uppercase tracking-widest border border-border'>
+                      Key Client
+                    </span>
+                  )}
+                </div>
+
+                {/* Responsibilities */}
+                <ul className='space-y-4'>
+                  {exp.responsibilities.map((res, j) => (
+                    <li
+                      key={j}
+                      className='flex items-start gap-3 text-sm md:text-base text-muted-foreground leading-relaxed'>
+                      <CheckCircle2 className='w-5 h-5 text-primary/40 shrink-0 mt-0.5' />
+                      <span>{res}</span>
+                    </li>
                   ))}
                 </ul>
+
+                {/* Key Client Section */}
+                {exp.keyClient && (
+                  <div className='mt-8 pt-6 border-t border-border/50'>
+                    <div className='font-bold text-sm text-primary mb-3'>
+                      Key Client: {exp.keyClient.name} ({exp.keyClient.period})
+                    </div>
+                    <ul className='space-y-3'>
+                      {exp.keyClient.achievements.map((achievement, achIndex) => (
+                        <li
+                          key={achIndex}
+                          className='flex items-start gap-3 text-sm text-muted-foreground leading-relaxed'>
+                          <CheckCircle2 className='w-4 h-4 text-primary/30 shrink-0 mt-0.5' />
+                          <span>{achievement}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
-            )}
-            <div className='absolute left-0 top-0 h-full w-px bg-border sm:left-20 sm:ml-px' />
-            <div className='absolute left-0 top-8 h-4 w-4 rounded-full border-2 border-primary bg-background sm:left-20 sm:ml-px' />
+            </div>
+
+            {/* Spacer for alternating layout */}
+            <div className='hidden sm:block w-[45%]'></div>
           </div>
         ))}
       </div>

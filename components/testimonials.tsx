@@ -1,7 +1,15 @@
-import { Card, CardContent } from './ui/card';
-import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
+import Image from 'next/image';
+import { Quote } from 'lucide-react';
 
-const testimonials = [
+interface Testimonial {
+  name: string;
+  position: string;
+  image: string;
+  highlight: string;
+  quote: string;
+}
+
+const testimonials: Testimonial[] = [
   {
     name: 'Michael Kelly',
     position: 'VP of Software Engineering',
@@ -32,41 +40,53 @@ const Testimonials = () => {
   return (
     <section
       id='testimonials'
-      className='py-16 bg-secondary/30'>
-      <h2 className='text-3xl sm:text-4xl font-bold mb-12 text-center'>Testimonials</h2>
-      <div className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
+      className='relative py-24 -mx-4 px-4 bg-secondary/20 border-y border-border'>
+      <div className='max-w-6xl mx-auto'>
+        {/* Section Header */}
+        <div className='text-center mb-16 space-y-4'>
+          <h2 className='text-3xl md:text-4xl font-bold tracking-tight'>Trusted by Industry Leaders</h2>
+          <p className='text-muted-foreground max-w-2xl mx-auto'>
+            Collaboration is at the heart of everything I build. Here&apos;s what clients say about our partnership.
+          </p>
+        </div>
+
+        {/* Testimonial Cards */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-          {testimonials.map((testimonial, index) => (
-            <Card
-              key={index}
-              className='bg-background flex'>
-              <CardContent className='p-6 flex flex-col w-full'>
-                <div className='flex flex-col flex-grow min-h-[200px]'>
-                  <p className='font-semibold text-lg leading-tight mb-4'>{testimonial.highlight}</p>
-                  <blockquote className='text-sm text-muted-foreground flex-grow'>
-                    &ldquo;{testimonial.quote}&rdquo;
-                  </blockquote>
-                </div>
-                <div className='flex items-center h-16 pt-6 mt-6 border-t border-border'>
-                  <Avatar className='mr-4 h-12 w-12'>
-                    <AvatarImage
-                      src={testimonial.image}
-                      alt={testimonial.name}
+          {testimonials.map((t, i) => (
+            <div
+              key={i}
+              className='group relative bg-card p-8 rounded-2xl border border-border shadow-sm transition-all hover:shadow-xl hover:border-primary/20'>
+              {/* Quote Icon */}
+              <Quote className='absolute top-6 right-8 w-10 h-10 text-primary/5 group-hover:text-primary/10 transition-colors' />
+
+              {/* Content */}
+              <div className='space-y-6 flex flex-col h-full'>
+                {/* Highlight */}
+                <p className='font-bold text-lg leading-tight text-foreground'>&ldquo;{t.highlight}&rdquo;</p>
+
+                {/* Full Quote */}
+                <blockquote className='text-sm text-muted-foreground leading-relaxed italic flex-grow'>
+                  &ldquo;{t.quote}&rdquo;
+                </blockquote>
+
+                {/* Author */}
+                <div className='pt-6 border-t border-border/50 flex items-center gap-4'>
+                  <div className='w-12 h-12 rounded-full overflow-hidden border border-border'>
+                    <Image
+                      src={t.image}
+                      alt={t.name}
+                      width={48}
+                      height={48}
+                      className='w-full h-full object-cover'
                     />
-                    <AvatarFallback>
-                      {testimonial.name
-                        .split(' ')
-                        .map((n) => n[0])
-                        .join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className='flex flex-col justify-center overflow-hidden'>
-                    <h3 className='font-medium leading-tight mb-1 truncate'>{testimonial.name}</h3>
-                    <p className='text-sm text-muted-foreground truncate'>{testimonial.position}</p>
+                  </div>
+                  <div>
+                    <h4 className='font-bold text-sm text-foreground'>{t.name}</h4>
+                    <p className='text-xs text-muted-foreground'>{t.position}</p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>

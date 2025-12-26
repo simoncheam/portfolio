@@ -58,3 +58,6 @@ override.tf.json
 
 _*.md
 _*
+# Claude Code configuration
+.claude*
+CLAUDE.md
