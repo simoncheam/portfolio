@@ -78,7 +78,7 @@ export function Navbar() {
             S
           </div>
           <span>
-            Simon<span className="text-primary">.</span>
+            SimonCheam<span className="text-primary">.</span>dev
           </span>
         </Link>
 
