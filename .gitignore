@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# enhanced images (not yet in use)
+/public/images/enhanced/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
