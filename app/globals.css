@@ -14,8 +14,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 20 14.3% 4.1%;
 
-    /* Anthropic Coral: #D97757 */
-    --primary: 15 61% 60%;
+    /* Anthropic Coral, darkened for AA contrast on light backgrounds */
+    --primary: 15 55% 45%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 30 20% 94%;
@@ -32,7 +32,7 @@
 
     --border: 30 15% 90%;
     --input: 30 15% 90%;
-    --ring: 15 61% 60%;
+    --ring: 15 55% 45%;
 
     --radius: 1rem;
   }

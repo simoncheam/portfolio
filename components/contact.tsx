@@ -73,7 +73,7 @@ const Contact = () => {
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
               Ready to build something robust?
             </h2>
-            <p className="text-primary-foreground/80 text-lg leading-relaxed max-w-md">
+            <p className="text-primary-foreground/95 text-lg leading-relaxed max-w-md">
               Whether you&apos;re looking for a technical audit, product
               development, or a custom AI solution, I&apos;m here to help you
               scale efficiently.
@@ -100,7 +100,7 @@ const Contact = () => {
           {/* Right Column - Actions */}
           <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/10 space-y-6">
             <h3 className="text-xl font-bold">Start a Conversation</h3>
-            <p className="text-sm text-primary-foreground/70">
+            <p className="text-sm text-primary-foreground/90">
               I usually respond within 24 hours. Let&apos;s discuss your
               technical challenges.
             </p>
