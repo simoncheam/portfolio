@@ -16,9 +16,10 @@ export function ProjectCardActions({ liveUrl, githubUrl, caseStudyUrl, title }: 
           href={liveUrl}
           target='_blank'
           rel='noopener noreferrer'
+          aria-label={`View ${title} live`}
           className='inline-flex items-center gap-1.5 py-3 -my-3 text-sm font-bold text-primary hover:opacity-80 transition-opacity'>
           <ExternalLink className='w-4 h-4' />
-          Live
+          View Live App
         </a>
       ) : (
         <span className='text-xs font-mono text-muted-foreground uppercase tracking-widest'>Internal Project</span>

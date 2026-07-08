@@ -6,6 +6,7 @@ import { ProjectCardActions } from './ProjectCardActions';
 interface ProjectCardProps {
   title: string;
   description: string;
+  metric?: string;
   imgUrl: string;
   techStack: string[];
   githubUrl?: string;
@@ -18,6 +19,7 @@ interface ProjectCardProps {
 export function ProjectCard({
   title,
   description,
+  metric,
   imgUrl,
   techStack,
   githubUrl,
@@ -47,6 +49,7 @@ export function ProjectCard({
         <ProjectCardContent
           title={title}
           description={description}
+          metric={metric}
         />
 
         {/* Tech Stack */}
