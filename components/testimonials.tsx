@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Quote } from 'lucide-react';
+import { SectionHeader } from './section-header';
 
 interface Testimonial {
   name: string;
@@ -43,11 +44,12 @@ const Testimonials = () => {
       className='relative py-24 -mx-4 px-4 bg-secondary/20 border-y border-border'>
       <div className='max-w-6xl mx-auto'>
         {/* Section Header */}
-        <div className='text-center mb-16 space-y-4'>
-          <h2 className='text-3xl md:text-4xl font-bold tracking-tight'>Trusted by Industry Leaders</h2>
-          <p className='text-muted-foreground max-w-2xl mx-auto'>
-            Collaboration is at the heart of everything I build. Here&apos;s what clients say about our partnership.
-          </p>
+        <div className='mb-16'>
+          <SectionHeader
+            eyebrow='Testimonials'
+            title='Trusted by Industry Leaders'
+            description="Collaboration is at the heart of everything I build. Here's what clients say about our partnership."
+          />
         </div>
 
         {/* Testimonial Cards */}

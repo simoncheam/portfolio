@@ -8,7 +8,7 @@ import {
   MessageSquare,
   MapPin,
 } from "lucide-react";
-import { RefObject, useEffect, useRef, useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { toast } from "sonner";
 import { ContactForm } from "./contact-form";
@@ -30,16 +30,6 @@ declare global {
 const Contact = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA | null>(null);
-
-  useEffect(() => {
-    const checkRecaptchaScript = () => {
-      if (window.grecaptcha) {
-      } else {
-        setTimeout(checkRecaptchaScript, 1000);
-      }
-    };
-    checkRecaptchaScript();
-  }, []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("simon@simoncheam.dev");

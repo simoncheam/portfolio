@@ -1,4 +1,5 @@
 import { ProjectCard } from './project-card/project-card';
+import { SectionHeader } from './section-header';
 
 interface Project {
   title: string;
@@ -86,12 +87,12 @@ const Projects = () => {
       className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24'>
       {/* Section Header */}
       <div className='flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4'>
-        <div className='space-y-4'>
-          <h2 className='text-3xl md:text-4xl font-bold tracking-tight'>Selected Projects</h2>
-          <p className='text-muted-foreground max-w-xl'>
-            A showcase of full-stack applications combining robust cloud infrastructure with modern web technologies.
-          </p>
-        </div>
+        <SectionHeader
+          align='left'
+          eyebrow='Selected Work'
+          title='Selected Projects'
+          description='A showcase of full-stack applications combining robust cloud infrastructure with modern web technologies.'
+        />
         <div className='hidden md:block h-px flex-grow mx-8 bg-border'></div>
         <div className='text-sm font-mono text-muted-foreground'>[{projectCount}] PROJECTS</div>
       </div>

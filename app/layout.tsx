@@ -23,7 +23,6 @@ export const metadata: Metadata = {
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
 };
 
 export default function RootLayout({
@@ -36,6 +35,12 @@ export default function RootLayout({
       <body
         className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} font-sans`}
       >
+        <a
+          href="#hero"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg"
+        >
+          Skip to content
+        </a>
         <Providers>
           <Navbar />
           <div className="max-w-6xl mx-auto px-4 w-full">{children}</div>

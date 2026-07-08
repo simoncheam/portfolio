@@ -16,7 +16,7 @@ export function ProjectCardActions({ liveUrl, githubUrl, caseStudyUrl, title }: 
           href={liveUrl}
           target='_blank'
           rel='noopener noreferrer'
-          className='inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:opacity-80 transition-opacity'>
+          className='inline-flex items-center gap-1.5 py-2.5 -my-2.5 text-sm font-bold text-primary hover:opacity-80 transition-opacity'>
           <ExternalLink className='w-4 h-4' />
           Live
         </a>
@@ -42,7 +42,7 @@ export function ProjectCardActions({ liveUrl, githubUrl, caseStudyUrl, title }: 
             href={githubUrl}
             target='_blank'
             rel='noopener noreferrer'
-            className='p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-all'
+            className='p-3 -m-1 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-all'
             aria-label={`View ${title} on GitHub`}>
             <Github className='w-5 h-5' />
           </a>

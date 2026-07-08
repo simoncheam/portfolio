@@ -40,19 +40,6 @@ export function Navbar() {
     console.log("%cLet's chat >>> simon@simoncheam.dev", style2);
   }, []);
 
-  // Pre-warm external project URLs
-  useEffect(() => {
-    Promise.all([
-      // fetch('https://covidtrackerdashboard.herokuapp.com/status', { mode: 'no-cors' }),
-      // fetch('https://ultimate-life-purpose.herokuapp.com/status', { mode: 'no-cors' }),
-      fetch("https://react-cocktailsapp.netlify.app", { mode: "no-cors" }),
-      fetch("https://next-bnb.vercel.app", { mode: "no-cors" }),
-      fetch("https://nextjs-gpt-tour-guide.vercel.app", { mode: "no-cors" }),
-      // fetch('https://personal-blogs-app.herokuapp.com/status', { mode: 'no-cors' }),
-      fetch("https://mini-netflix-angular.web.app/movie", { mode: "no-cors" }),
-    ]).then(() => console.log("apps loaded successfully"));
-  }, []);
-
   // Scroll detection for navbar styling
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -121,12 +108,12 @@ export function Navbar() {
           <ThemeToggle />
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="h-11 w-11 md:h-9 md:w-9">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[280px]">
+            <SheetContent side="right" className="w-[280px]" aria-describedby={undefined}>
               <VisuallyHidden>
                 <DialogTitle>Mobile Navigation Menu</DialogTitle>
               </VisuallyHidden>
