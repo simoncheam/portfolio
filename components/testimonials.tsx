@@ -57,7 +57,7 @@ const Testimonials = () => {
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className='group relative bg-card p-8 rounded-2xl border border-border shadow-sm transition-all hover:shadow-xl hover:border-primary/20'>
+              className='group relative bg-card p-8 rounded-2xl border border-border shadow-sm transition-[border-color,box-shadow] hover:shadow-xl hover:border-primary/20'>
               {/* Quote Icon */}
               <Quote className='absolute top-6 right-8 w-10 h-10 text-primary/5 group-hover:text-primary/10 transition-colors' />
 

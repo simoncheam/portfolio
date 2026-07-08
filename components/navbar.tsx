@@ -49,7 +49,7 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-[padding,background-color,border-color,backdrop-filter] duration-300 ${
         scrolled
           ? "py-3 bg-background/80 backdrop-blur-lg border-b border-border"
           : "py-6 bg-transparent"
@@ -85,7 +85,7 @@ export function Navbar() {
               href="https://github.com/simoncheam"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full hover:bg-secondary text-foreground transition-all"
+              className="p-2 rounded-full hover:bg-secondary text-foreground transition-colors"
               aria-label="GitHub"
             >
               <Github className="w-5 h-5" />
@@ -94,7 +94,7 @@ export function Navbar() {
               href="https://linkedin.com/in/simoncheam"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full hover:bg-secondary text-foreground transition-all"
+              className="p-2 rounded-full hover:bg-secondary text-foreground transition-colors"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-5 h-5" />
@@ -133,7 +133,7 @@ export function Navbar() {
                     href="https://github.com/simoncheam"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all"
+                    className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors"
                     aria-label="GitHub"
                   >
                     <Github className="w-5 h-5" />
@@ -142,7 +142,7 @@ export function Navbar() {
                     href="https://linkedin.com/in/simoncheam"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all"
+                    className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors"
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="w-5 h-5" />

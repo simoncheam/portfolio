@@ -101,7 +101,7 @@ const Contact = () => {
                 href="https://cal.com/simoncheam/quickchat"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-4 bg-white text-primary rounded-xl font-bold hover:bg-white/90 transition-all shadow-lg"
+                className="w-full flex items-center justify-center gap-2 py-4 bg-white text-primary rounded-xl font-bold hover:bg-white/90 transition-colors shadow-lg"
               >
                 <Calendar className="w-5 h-5" /> Schedule a Call
               </a>

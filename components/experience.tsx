@@ -118,7 +118,7 @@ const Experience = () => {
 
             {/* Card */}
             <div className="w-full sm:w-[45%] group">
-              <div className="relative bg-card border border-border p-8 rounded-3xl shadow-sm transition-all duration-300 hover:shadow-xl hover:border-primary/30">
+              <div className="relative bg-card border border-border p-8 rounded-3xl shadow-sm transition-[border-color,box-shadow] duration-300 hover:shadow-xl hover:border-primary/30">
                 {/* Period Badge */}
                 <div className="inline-flex items-center gap-2 text-[10px] font-mono font-black text-primary uppercase tracking-widest mb-4 bg-primary/5 px-3 py-1 rounded-full border border-primary/10">
                   <Calendar className="w-3 h-3" />

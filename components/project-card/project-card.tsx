@@ -28,7 +28,7 @@ export function ProjectCard({
 }: ProjectCardProps) {
   return (
     <div
-      className={`group relative flex flex-col h-full bg-card rounded-2xl overflow-hidden border border-border shadow-sm transition-all duration-500 hover:shadow-2xl hover:border-primary/40 hover:-translate-y-2 ${
+      className={`group relative flex flex-col h-full bg-card rounded-2xl overflow-hidden border border-border shadow-sm transition-[border-color,box-shadow,transform] duration-500 hover:shadow-2xl hover:border-primary/40 hover:-translate-y-2 ${
         featured
           ? 'border-primary/30 ring-1 ring-primary/5 bg-gradient-to-br from-card to-primary/[0.03]'
           : ''
