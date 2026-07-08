@@ -40,19 +40,6 @@ export function Navbar() {
     console.log("%cLet's chat >>> simon@simoncheam.dev", style2);
   }, []);
 
-  // Pre-warm external project URLs
-  useEffect(() => {
-    Promise.all([
-      // fetch('https://covidtrackerdashboard.herokuapp.com/status', { mode: 'no-cors' }),
-      // fetch('https://ultimate-life-purpose.herokuapp.com/status', { mode: 'no-cors' }),
-      fetch("https://react-cocktailsapp.netlify.app", { mode: "no-cors" }),
-      fetch("https://next-bnb.vercel.app", { mode: "no-cors" }),
-      fetch("https://nextjs-gpt-tour-guide.vercel.app", { mode: "no-cors" }),
-      // fetch('https://personal-blogs-app.herokuapp.com/status', { mode: 'no-cors' }),
-      fetch("https://mini-netflix-angular.web.app/movie", { mode: "no-cors" }),
-    ]).then(() => console.log("apps loaded successfully"));
-  }, []);
-
   // Scroll detection for navbar styling
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -62,7 +49,7 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-[padding,background-color,border-color,backdrop-filter] duration-300 ${
         scrolled
           ? "py-3 bg-background/80 backdrop-blur-lg border-b border-border"
           : "py-6 bg-transparent"
@@ -98,7 +85,7 @@ export function Navbar() {
               href="https://github.com/simoncheam"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full hover:bg-secondary text-foreground transition-all"
+              className="p-2 rounded-full hover:bg-secondary text-foreground transition-colors"
               aria-label="GitHub"
             >
               <Github className="w-5 h-5" />
@@ -107,7 +94,7 @@ export function Navbar() {
               href="https://linkedin.com/in/simoncheam"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full hover:bg-secondary text-foreground transition-all"
+              className="p-2 rounded-full hover:bg-secondary text-foreground transition-colors"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-5 h-5" />
@@ -121,12 +108,12 @@ export function Navbar() {
           <ThemeToggle />
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="h-11 w-11 md:h-9 md:w-9">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[280px]">
+            <SheetContent side="right" className="w-[280px]" aria-describedby={undefined}>
               <VisuallyHidden>
                 <DialogTitle>Mobile Navigation Menu</DialogTitle>
               </VisuallyHidden>
@@ -146,7 +133,7 @@ export function Navbar() {
                     href="https://github.com/simoncheam"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all"
+                    className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors"
                     aria-label="GitHub"
                   >
                     <Github className="w-5 h-5" />
@@ -155,7 +142,7 @@ export function Navbar() {
                     href="https://linkedin.com/in/simoncheam"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-all"
+                    className="p-3 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors"
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="w-5 h-5" />

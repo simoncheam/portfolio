@@ -11,7 +11,7 @@ const Hero = () => {
       <div className="relative mb-16">
         {/* Multilayer Glow */}
         <div className="absolute inset-[-30%] bg-primary/20 rounded-full blur-[80px] animate-pulse-soft"></div>
-        <div className="absolute inset-[-10%] bg-indigo-500/10 rounded-full blur-[40px] animate-float"></div>
+        <div className="absolute inset-[-10%] bg-primary/10 rounded-full blur-[40px] animate-float"></div>
 
         <div className="relative w-44 h-44 md:w-56 md:h-56 rounded-full border-2 border-primary/20 p-2 bg-background/50 backdrop-blur-md shadow-2xl overflow-hidden ring-[12px] ring-secondary/30 animate-float">
           <Image
@@ -73,7 +73,7 @@ const Hero = () => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
           <a
             href="#projects"
-            className="group relative inline-flex items-center justify-center px-12 py-5 font-black text-primary-foreground bg-primary rounded-2xl transition-all duration-500 hover:scale-[1.05] hover:shadow-[0_24px_48px_-12px_rgba(79,70,229,0.4)] overflow-hidden"
+            className="group relative inline-flex items-center justify-center px-12 py-5 font-black text-primary-foreground bg-primary rounded-2xl transition-[transform,box-shadow] duration-500 hover:scale-[1.05] hover:shadow-[0_24px_48px_-12px_hsl(var(--primary)/0.4)] overflow-hidden"
           >
             <span className="relative flex items-center gap-3 text-lg">
               View Projects{" "}
@@ -82,7 +82,7 @@ const Hero = () => {
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center justify-center px-12 py-5 font-black text-foreground border-2 border-border bg-background/50 backdrop-blur-xl rounded-2xl transition-all duration-300 hover:bg-secondary hover:border-primary/40 text-lg"
+            className="inline-flex items-center justify-center px-12 py-5 font-black text-foreground border-2 border-border bg-background/50 backdrop-blur-xl rounded-2xl transition-colors duration-300 hover:bg-secondary hover:border-primary/40 text-lg"
           >
             Start Project
           </a>

@@ -1,4 +1,5 @@
 import { Award, ExternalLink } from 'lucide-react';
+import { SectionHeader } from './section-header';
 
 interface Certification {
   name: string;
@@ -28,9 +29,12 @@ export function Certifications() {
       id='certifications'
       className='max-w-4xl mx-auto px-4 text-center scroll-mt-24'>
       {/* Section Header */}
-      <div className='space-y-2 mb-12'>
-        <h2 className='text-3xl font-bold tracking-tight'>Verified Expertise</h2>
-        <p className='text-muted-foreground'>Certified in building secure and high-performance cloud architectures.</p>
+      <div className='mb-12'>
+        <SectionHeader
+          eyebrow='Credentials'
+          title='Verified Expertise'
+          description='Certified in building secure and high-performance cloud architectures.'
+        />
       </div>
 
       {/* Certification Cards */}
@@ -41,7 +45,7 @@ export function Certifications() {
             href={cert.url}
             target='_blank'
             rel='noopener noreferrer'
-            className='group relative block bg-card border border-border p-6 rounded-2xl transition-all hover:border-primary/50 hover:shadow-xl hover:-translate-y-1 overflow-hidden'>
+            className='group relative block bg-card border border-border p-6 rounded-2xl transition-[border-color,box-shadow,transform] hover:border-primary/50 hover:shadow-xl hover:-translate-y-1 overflow-hidden'>
             {/* Background Decoration */}
             <div className='absolute top-[-20px] right-[-20px] opacity-5 transition-transform group-hover:scale-125 duration-700'>
               <Award className='w-32 h-32' />

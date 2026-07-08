@@ -16,9 +16,10 @@ export function ProjectCardActions({ liveUrl, githubUrl, caseStudyUrl, title }: 
           href={liveUrl}
           target='_blank'
           rel='noopener noreferrer'
-          className='inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:opacity-80 transition-opacity'>
+          aria-label={`View ${title} live`}
+          className='inline-flex items-center gap-1.5 py-3 -my-3 text-sm font-bold text-primary hover:opacity-80 transition-opacity'>
           <ExternalLink className='w-4 h-4' />
-          Live
+          View Live App
         </a>
       ) : (
         <span className='text-xs font-mono text-muted-foreground uppercase tracking-widest'>Internal Project</span>
@@ -31,7 +32,7 @@ export function ProjectCardActions({ liveUrl, githubUrl, caseStudyUrl, title }: 
             href={caseStudyUrl}
             target='_blank'
             rel='noopener noreferrer'
-            className='inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-primary bg-primary/10 hover:bg-primary/20 rounded-lg transition-all border border-primary/20'
+            className='inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-primary bg-primary/10 hover:bg-primary/20 rounded-lg transition-colors border border-primary/20'
             aria-label={`Read case study for ${title}`}>
             <FileText className='w-3.5 h-3.5' />
             Case Study
@@ -42,7 +43,7 @@ export function ProjectCardActions({ liveUrl, githubUrl, caseStudyUrl, title }: 
             href={githubUrl}
             target='_blank'
             rel='noopener noreferrer'
-            className='p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-all'
+            className='p-3 -m-1 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors'
             aria-label={`View ${title} on GitHub`}>
             <Github className='w-5 h-5' />
           </a>

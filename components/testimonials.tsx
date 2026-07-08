@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Quote } from 'lucide-react';
+import { SectionHeader } from './section-header';
 
 interface Testimonial {
   name: string;
@@ -43,11 +44,12 @@ const Testimonials = () => {
       className='relative py-24 -mx-4 px-4 bg-secondary/20 border-y border-border'>
       <div className='max-w-6xl mx-auto'>
         {/* Section Header */}
-        <div className='text-center mb-16 space-y-4'>
-          <h2 className='text-3xl md:text-4xl font-bold tracking-tight'>Trusted by Industry Leaders</h2>
-          <p className='text-muted-foreground max-w-2xl mx-auto'>
-            Collaboration is at the heart of everything I build. Here&apos;s what clients say about our partnership.
-          </p>
+        <div className='mb-16'>
+          <SectionHeader
+            eyebrow='Testimonials'
+            title='Trusted by Industry Leaders'
+            description="Collaboration is at the heart of everything I build. Here's what clients say about our partnership."
+          />
         </div>
 
         {/* Testimonial Cards */}
@@ -55,7 +57,7 @@ const Testimonials = () => {
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className='group relative bg-card p-8 rounded-2xl border border-border shadow-sm transition-all hover:shadow-xl hover:border-primary/20'>
+              className='group relative bg-card p-8 rounded-2xl border border-border shadow-sm transition-[border-color,box-shadow] hover:shadow-xl hover:border-primary/20'>
               {/* Quote Icon */}
               <Quote className='absolute top-6 right-8 w-10 h-10 text-primary/5 group-hover:text-primary/10 transition-colors' />
 
@@ -81,7 +83,7 @@ const Testimonials = () => {
                     />
                   </div>
                   <div>
-                    <h4 className='font-bold text-sm text-foreground'>{t.name}</h4>
+                    <h3 className='font-bold text-sm text-foreground'>{t.name}</h3>
                     <p className='text-xs text-muted-foreground'>{t.position}</p>
                   </div>
                 </div>

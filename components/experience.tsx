@@ -1,4 +1,5 @@
 import { Calendar, CheckCircle2 } from "lucide-react";
+import { SectionHeader } from "./section-header";
 
 interface ExperienceItem {
   company: string;
@@ -76,7 +77,7 @@ const experiences: ExperienceItem[] = [
   {
     company: "Power Systems Mfg., LLC.",
     role: "STAFF MANUFACTURING ENGINEER | MECHANICAL DESIGN ENGINEER",
-    period: "01/2012 – 01/2018",
+    period: "01/2012 - 01/2018",
     location: "Jupiter, FL",
     responsibilities: [
       "Led cross-functional team activities across development, design, and operations to deliver complex projects efficiently",
@@ -92,13 +93,8 @@ const Experience = () => {
   return (
     <section id="experience" className="max-w-4xl mx-auto px-4 scroll-mt-24">
       {/* Section Header */}
-      <div className="text-center mb-20 space-y-4">
-        <h2 className="text-sm font-mono font-bold text-primary uppercase tracking-[0.2em]">
-          Professional Journey
-        </h2>
-        <h3 className="text-4xl md:text-5xl font-black tracking-tight">
-          Experience Timeline
-        </h3>
+      <div className="mb-20">
+        <SectionHeader eyebrow="Professional Journey" title="Experience Timeline" />
       </div>
 
       {/* Timeline */}
@@ -122,7 +118,7 @@ const Experience = () => {
 
             {/* Card */}
             <div className="w-full sm:w-[45%] group">
-              <div className="relative bg-card border border-border p-8 rounded-3xl shadow-sm transition-all duration-300 hover:shadow-xl hover:border-primary/30">
+              <div className="relative bg-card border border-border p-8 rounded-3xl shadow-sm transition-[border-color,box-shadow] duration-300 hover:shadow-xl hover:border-primary/30">
                 {/* Period Badge */}
                 <div className="inline-flex items-center gap-2 text-[10px] font-mono font-black text-primary uppercase tracking-widest mb-4 bg-primary/5 px-3 py-1 rounded-full border border-primary/10">
                   <Calendar className="w-3 h-3" />
@@ -130,9 +126,9 @@ const Experience = () => {
                 </div>
 
                 {/* Role */}
-                <h4 className="text-xl md:text-2xl font-black text-foreground mb-1">
+                <h3 className="text-xl md:text-2xl font-black text-foreground mb-1">
                   {exp.role}
-                </h4>
+                </h3>
 
                 {/* Company & Location */}
                 <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground mb-6">

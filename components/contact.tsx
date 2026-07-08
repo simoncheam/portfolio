@@ -8,7 +8,7 @@ import {
   MessageSquare,
   MapPin,
 } from "lucide-react";
-import { RefObject, useEffect, useRef, useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { toast } from "sonner";
 import { ContactForm } from "./contact-form";
@@ -30,16 +30,6 @@ declare global {
 const Contact = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA | null>(null);
-
-  useEffect(() => {
-    const checkRecaptchaScript = () => {
-      if (window.grecaptcha) {
-      } else {
-        setTimeout(checkRecaptchaScript, 1000);
-      }
-    };
-    checkRecaptchaScript();
-  }, []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("simon@simoncheam.dev");
@@ -73,7 +63,7 @@ const Contact = () => {
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
               Ready to build something robust?
             </h2>
-            <p className="text-primary-foreground/80 text-lg leading-relaxed max-w-md">
+            <p className="text-primary-foreground/95 text-lg leading-relaxed max-w-md">
               Whether you&apos;re looking for a technical audit, product
               development, or a custom AI solution, I&apos;m here to help you
               scale efficiently.
@@ -100,7 +90,7 @@ const Contact = () => {
           {/* Right Column - Actions */}
           <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/10 space-y-6">
             <h3 className="text-xl font-bold">Start a Conversation</h3>
-            <p className="text-sm text-primary-foreground/70">
+            <p className="text-sm text-primary-foreground/90">
               I usually respond within 24 hours. Let&apos;s discuss your
               technical challenges.
             </p>
@@ -111,7 +101,7 @@ const Contact = () => {
                 href="https://cal.com/simoncheam/quickchat"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-4 bg-white text-primary rounded-xl font-bold hover:bg-white/90 transition-all shadow-lg"
+                className="w-full flex items-center justify-center gap-2 py-4 bg-white text-primary rounded-xl font-bold hover:bg-white/90 transition-colors shadow-lg"
               >
                 <Calendar className="w-5 h-5" /> Schedule a Call
               </a>

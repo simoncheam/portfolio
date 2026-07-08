@@ -1,8 +1,10 @@
 import { ProjectCard } from './project-card/project-card';
+import { SectionHeader } from './section-header';
 
 interface Project {
   title: string;
   description: string;
+  metric?: string;
   imgUrl: string;
   techStack: string[];
   githubUrl?: string;
@@ -15,7 +17,8 @@ const projects: Project[] = [
   {
     title: 'Cost-Optimized RAG Chatbot',
     description:
-      'Intelligent portfolio assistant with advanced retrieval-augmented generation. Engineered $4,200 annual cost savings through strategic AWS service optimization while delivering enterprise-grade performance.',
+      'RAG portfolio assistant tuned for enterprise-grade performance.',
+    metric: '$4,200/yr AWS cost savings',
     imgUrl: '/images/rag-ai-portfolio-thumbnail.png',
     techStack: ['AWS Bedrock', 'OpenSearch', 'Lambda', 'Next.js 15', 'TypeScript', 'AWS CDK', 'DynamoDB', 'Cognito'],
     liveUrl: 'https://ai-portfolio-chatbot.vercel.app',
@@ -24,7 +27,8 @@ const projects: Project[] = [
   {
     title: 'Local Business Subscription Platform',
     description:
-      'Full-stack subscription platform connecting members with local businesses. Features automated coupon system, Stripe payments, and role-based access, reducing operational overhead by 90%.',
+      'Subscription platform connecting members with local businesses.',
+    metric: '90% less operational overhead',
     imgUrl: '/images/membership-platform.png',
     techStack: ['Next.js 14', 'PostgreSQL', 'Prisma', 'Clerk', 'Stripe', 'Vercel', 'Supabase', 'TypeScript'],
     liveUrl: 'https://pinellas-perks-mvp.vercel.app/',
@@ -32,9 +36,10 @@ const projects: Project[] = [
     featured: true,
   },
   {
-    title: 'Portfolio Website with AWS Serverless Backend',
+    title: 'Serverless Portfolio Website',
     description:
-      'Modern responsive portfolio with serverless contact form processing. Template architecture reused for multiple projects, reducing setup time by 50%+.',
+      'Responsive portfolio with serverless contact forms and a reusable template architecture.',
+    metric: '50%+ faster project setup',
     imgUrl: '/images/portfolio-aws.png',
     techStack: ['Next.js', 'AWS Lambda', 'SES', 'CDK', 'Amplify', 'GitHub Actions'],
     githubUrl: 'https://github.com/simoncheam/portfolio',
@@ -86,12 +91,12 @@ const Projects = () => {
       className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24'>
       {/* Section Header */}
       <div className='flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4'>
-        <div className='space-y-4'>
-          <h2 className='text-3xl md:text-4xl font-bold tracking-tight'>Selected Projects</h2>
-          <p className='text-muted-foreground max-w-xl'>
-            A showcase of full-stack applications combining robust cloud infrastructure with modern web technologies.
-          </p>
-        </div>
+        <SectionHeader
+          align='left'
+          eyebrow='Selected Work'
+          title='Selected Projects'
+          description='A showcase of full-stack applications combining robust cloud infrastructure with modern web technologies.'
+        />
         <div className='hidden md:block h-px flex-grow mx-8 bg-border'></div>
         <div className='text-sm font-mono text-muted-foreground'>[{projectCount}] PROJECTS</div>
       </div>
@@ -99,9 +104,7 @@ const Projects = () => {
       {/* Projects Grid */}
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
         {projects.map((project: Project, index: number) => (
-          <div
-            key={index}
-            className={project.featured ? 'md:col-span-1 lg:col-span-1' : ''}>
+          <div key={index}>
             <ProjectCard
               {...project}
               number={index + 1}
