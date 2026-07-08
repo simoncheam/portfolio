@@ -83,7 +83,7 @@ const Testimonials = () => {
                     />
                   </div>
                   <div>
-                    <h4 className='font-bold text-sm text-foreground'>{t.name}</h4>
+                    <h3 className='font-bold text-sm text-foreground'>{t.name}</h3>
                     <p className='text-xs text-muted-foreground'>{t.position}</p>
                   </div>
                 </div>

@@ -16,7 +16,7 @@ export function ProjectCardActions({ liveUrl, githubUrl, caseStudyUrl, title }: 
           href={liveUrl}
           target='_blank'
           rel='noopener noreferrer'
-          className='inline-flex items-center gap-1.5 py-2.5 -my-2.5 text-sm font-bold text-primary hover:opacity-80 transition-opacity'>
+          className='inline-flex items-center gap-1.5 py-3 -my-3 text-sm font-bold text-primary hover:opacity-80 transition-opacity'>
           <ExternalLink className='w-4 h-4' />
           Live
         </a>
