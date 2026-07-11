@@ -20,7 +20,6 @@ const Hero = () => {
             width={256}
             height={256}
             priority={true}
-            sizes="(max-width: 768px) 176px, 224px"
             quality={90}
             className="w-full h-full object-cover rounded-full transition-transform duration-1000 hover:scale-110"
           />

@@ -160,15 +160,18 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Hidden reCAPTCHA */}
-      <ReCAPTCHA
-        ref={recaptchaRef}
-        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-        size="invisible"
-        theme="light"
-        onErrored={handleRecaptchaError}
-        onExpired={handleRecaptchaExpired}
-      />
+      {/* Hidden reCAPTCHA — mounted only when the form dialog is open so
+          Google's ~375KB script stays off the initial page load. */}
+      {isDialogOpen && (
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+          size="invisible"
+          theme="light"
+          onErrored={handleRecaptchaError}
+          onExpired={handleRecaptchaExpired}
+        />
+      )}
     </section>
   );
 };
