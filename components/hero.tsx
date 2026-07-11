@@ -26,15 +26,6 @@ const Hero = () => {
           />
         </div>
 
-        {/* Status Badge - Uncomment when consulting/available
-        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-background border border-border px-5 py-2 rounded-full text-[10px] font-mono font-black uppercase tracking-[0.2em] shadow-2xl flex items-center gap-2 whitespace-nowrap z-10 border-primary/20">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-          </span>
-          Consulting Q1 2025 OPEN
-        </div>
-        */}
       </div>
 
       {/* Content */}
@@ -46,13 +37,13 @@ const Hero = () => {
 
           <div className="flex flex-wrap items-center justify-center gap-3 md:gap-8 text-xl md:text-3xl font-bold pt-4">
             <span className="highlight-container text-foreground/90">
-              Full Stack Developer
+              Full Stack Engineer
             </span>
             <span className="text-primary/30 font-thin hidden sm:inline">
               |
             </span>
             <span className="highlight-container text-foreground/90">
-              Agentic Engineer
+              Building Agentic AI Systems
             </span>
           </div>
         </div>
