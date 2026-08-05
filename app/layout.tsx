@@ -15,7 +15,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 const siteUrl = "https://www.simoncheam.dev";
-const siteTitle = "Simon Cheam - Full Stack Engineer | Building Agentic AI Systems";
+const siteTitle =
+  "Simon Cheam - Full Stack Engineer | Building Agentic AI Systems";
 const siteDescription =
   "Portfolio of Simon Cheam — full stack engineer building scalable web platforms and agentic AI systems.";
 

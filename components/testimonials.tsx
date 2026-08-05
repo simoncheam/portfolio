@@ -12,6 +12,30 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
+    name: 'Roman Tsihanovich',
+    position: 'Engineering Manager @ Shift4',
+    image: '/images/roman.jpeg',
+    highlight: 'Brought agentic engineering and AI tooling to the team...',
+    quote:
+      'I managed Simon at Shift4, where he led our frontend migration from Ember to React using a micro frontend architecture and brought agentic engineering and AI tooling to the team. He works autonomously, delivers reliably, communicates clearly, and takes initiative.',
+  },
+  {
+    name: 'Nick Brunner',
+    position: 'Product @ Salesforce | Agentic Commerce',
+    image: '/images/nicholas.jpeg',
+    highlight: 'Took the initiative to champion Agentic Engineering principles...',
+    quote:
+      'Simon is a pleasure to work with: thoughtful, empathetic and an excellent communicator. He is an extremely capable full stack engineer — Simon took the initiative to champion Agentic Engineering principles and practices at Shift4. He was a key contributor in advancing agentic coding.',
+  },
+  {
+    name: 'Peter Correa',
+    position: 'Senior Software Engineer @ Shift4',
+    image: '/images/peter.jpeg',
+    highlight: 'A natural bridge between teams...',
+    quote:
+      'He moves easily between technical depth and design sensibility, which made him a natural bridge between teams. Colleagues from different disciplines consistently sought out his input, not just for his technical skill but for how thoughtfully he weighed their perspectives before offering his own.',
+  },
+  {
     name: 'Michael Kelly',
     position: 'VP of Software Engineering',
     image: '/images/michael.jpeg',
@@ -48,7 +72,7 @@ const Testimonials = () => {
           <SectionHeader
             eyebrow='Testimonials'
             title='Trusted by Industry Leaders'
-            description="Collaboration is at the heart of everything I build. Here's what clients say about our partnership."
+            description="Here's what managers, teammates, and clients say about working with me."
           />
         </div>
 
