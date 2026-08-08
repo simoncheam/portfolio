@@ -18,15 +18,14 @@ const experiences: ExperienceItem[] = [
   {
     company: "Shift4",
     role: "FULL STACK ENGINEER",
-    period: "08/2025 - Present",
-    location: "",
+    period: "08/2025 - 08/2026",
+    location: "Hybrid",
     responsibilities: [
-      "Designed AI-assisted development workflows to improve feature delivery, maintain design consistency, and streamline documentation and project management processes",
-      "Built a self-service online ordering UI from design mockups, contributing to a sustained 44% increase in monthly installs post-release",
-      "Led modernization of legacy frontend (Ember → React) using a micro-frontend architecture, reducing technical debt and enabling incremental, zero-downtime releases",
-      "Expanded platform capabilities to new markets by implementing internationalization across onboarding, pricing, and user education flows",
-      "Developed reusable engineering patterns to support consistent AI-assisted development across teams",
-      "Contributed to backend features including email integrations, onboarding APIs, and payment support",
+      "Built the team's Claude Code standards repository — reusable commands, skills, and workflows that made AI-assisted development a shared, reviewable practice",
+      "Migrated a legacy merchant module from Ember to a React and TypeScript micro-frontend on single-spa, cutting technical debt with a zero-downtime, feature-flagged rollout",
+      "Built core screens of the self-service online ordering flow with our designer, part of a redesign that contributed to a sustained 44% lift in monthly app installs",
+      "Localized onboarding, pricing, and merchant education for the UK, Ireland, and Spain, gated behind feature flags for European expansion",
+      "Delivered full-stack: onboarding and platform features, merchant email integrations, and Node.js APIs, plus production support that unblocked merchants",
     ],
   },
   {
@@ -94,7 +93,10 @@ const Experience = () => {
     <section id="experience" className="max-w-4xl mx-auto px-4 scroll-mt-24">
       {/* Section Header */}
       <div className="mb-20">
-        <SectionHeader eyebrow="Professional Journey" title="Experience Timeline" />
+        <SectionHeader
+          eyebrow="Professional Journey"
+          title="Experience Timeline"
+        />
       </div>
 
       {/* Timeline */}
