@@ -1,14 +1,14 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
+import coreWebVitals from 'eslint-config-next/core-web-vitals';
+import typescript from 'eslint-config-next/typescript';
+import prettier from 'eslint-config-prettier';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [...compat.extends('next/core-web-vitals', 'next/typescript', 'next', 'prettier')];
+// `next lint` (removed in Next 16) only scanned source dirs; `eslint .` scans everything,
+// so exclude non-source scaffolding that isn't meant to typecheck.
+const eslintConfig = [
+  { ignores: ['.claude/**', '.claude-context/**', '.next/**', 'docs/**', '_docs_private/**'] },
+  ...coreWebVitals,
+  ...typescript,
+  prettier,
+];
 
 export default eslintConfig;

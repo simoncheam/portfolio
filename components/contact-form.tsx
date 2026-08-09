@@ -86,7 +86,7 @@ export function ContactForm({ onSuccess, recaptchaRef }: ContactFormProps) {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={(e) => form.handleSubmit(onSubmit)(e)}
         className='space-y-4'>
         <FormField
           control={form.control}
