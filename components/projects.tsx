@@ -17,7 +17,7 @@ const projects: Project[] = [
   {
     title: 'Cost-Optimized RAG Chatbot',
     description:
-      'RAG portfolio assistant tuned for enterprise-grade performance.',
+      'RAG portfolio assistant tuned for enterprise-grade performance',
     metric: '$4,200/yr AWS cost savings',
     imgUrl: '/images/rag-ai-portfolio-thumbnail.png',
     techStack: ['AWS Bedrock', 'OpenSearch', 'Lambda', 'Next.js 15', 'TypeScript', 'AWS CDK', 'DynamoDB', 'Cognito'],
@@ -27,7 +27,7 @@ const projects: Project[] = [
   {
     title: 'Local Business Subscription Platform',
     description:
-      'Subscription platform connecting members with local businesses.',
+      'Subscription platform connecting members with local businesses',
     metric: '90% less operational overhead',
     imgUrl: '/images/membership-platform.png',
     techStack: ['Next.js 14', 'PostgreSQL', 'Prisma', 'Clerk', 'Stripe', 'Vercel', 'Supabase', 'TypeScript'],
@@ -38,7 +38,7 @@ const projects: Project[] = [
   {
     title: 'Serverless Portfolio Website',
     description:
-      'Responsive portfolio with serverless contact forms and a reusable template architecture.',
+      'Responsive portfolio with serverless contact forms and a reusable template architecture',
     metric: '50%+ faster project setup',
     imgUrl: '/images/portfolio-aws.png',
     techStack: ['Next.js', 'AWS Lambda', 'SES', 'CDK', 'Amplify', 'GitHub Actions'],
@@ -48,7 +48,7 @@ const projects: Project[] = [
   {
     title: 'NextBnB: Full-Stack Vacation Rental Platform',
     description:
-      'A fully responsive vacation rental platform using Next.js 14, integrating TailwindCSS, Shadcn/UI, and Supabase for dynamic user interfaces and robust backend support.',
+      'Vacation rental platform on Next.js 14 with Stripe payments, Supabase, Prisma, and Clerk auth',
     imgUrl: '/images/nextbnb.png',
     techStack: ['Next.js', 'TailwindCSS', 'Shadcn/UI', 'Supabase', 'Clerk', 'Zod'],
     githubUrl: 'https://github.com/simoncheam/next-bnb',
@@ -57,7 +57,7 @@ const projects: Project[] = [
   {
     title: 'GPTGenius: AI Tour Guide Assistant',
     description:
-      'An AI-powered assistant using Next.js 14+, OpenAI, Prisma, Tailwind CSS, and Clerk authentication, driving personalized user engagement.',
+      'AI tour-guide assistant on Next.js 14 with the OpenAI API, Clerk auth, Prisma, and TanStack Query',
     imgUrl: '/images/gptgenius.png',
     techStack: ['Next.js', 'OpenAI', 'Prisma', 'TailwindCSS', 'Clerk'],
     githubUrl: 'https://github.com/simoncheam/gpt-genius',
@@ -65,16 +65,15 @@ const projects: Project[] = [
   },
   {
     title: 'Mini Netflix',
-    description: 'A mobile responsive app showcasing proficiency in Angular and SCSS.',
+    description: 'Responsive movie-browsing UI built with Angular 16 and SCSS',
     imgUrl: '/images/mininetflix.png',
     techStack: ['Angular', 'SCSS'],
-    githubUrl: 'https://github.com/simoncheam/mini-netflix-app',
     liveUrl: 'https://mini-netflix-angular.web.app/movie',
   },
   {
     title: 'GitHub Actions CI/CD for Lambda Functions and CloudFormation',
     description:
-      'This project automates the deployment of AWS Lambda functions and validates CloudFormation templates using GitHub Actions workflows.',
+      'GitHub Actions CI/CD that deploys Lambda functions and validates CloudFormation on each pull request',
     imgUrl: '/images/lambda-cicd.png',
     techStack: ['GitHub Actions', 'AWS Lambda', 'AWS CloudFormation'],
     githubUrl: 'https://github.com/simoncheam/lambda-cicd',
