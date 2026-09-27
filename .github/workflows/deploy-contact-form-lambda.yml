@@ -1,0 +1,65 @@
+name: Deploy contact-form Lambda
+
+# Redeploys infrastructure/lambda/index.js to the live function whenever the
+# Lambda source or this workflow changes on main. Auth is GitHub OIDC: the run
+# assumes an IAM role that can only update this one function's code.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'infrastructure/lambda/**'
+      - '.github/workflows/deploy-contact-form-lambda.yml'
+
+permissions:
+  id-token: write # required to request the OIDC token
+  contents: read
+
+concurrency:
+  group: deploy-contact-form-lambda
+  cancel-in-progress: false
+
+env:
+  FUNCTION_NAME: portfolio-contact-form-handler
+  AWS_REGION: us-east-1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infrastructure/lambda
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18' # matches the function's nodejs18.x runtime
+          cache: npm
+          cache-dependency-path: infrastructure/lambda/package-lock.json
+
+      - name: Install production dependencies
+        run: npm ci --omit=dev
+
+      - name: Package
+        run: zip -qr lambda.zip index.js package.json node_modules
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy code
+        run: |
+          aws lambda update-function-code \
+            --function-name "$FUNCTION_NAME" \
+            --zip-file fileb://lambda.zip \
+            --query '[FunctionName,CodeSize,LastModified]' --output text
+          aws lambda wait function-updated --function-name "$FUNCTION_NAME"
+
+      - name: Verify
+        run: |
+          aws lambda get-function-configuration \
+            --function-name "$FUNCTION_NAME" \
+            --query '[Runtime,Handler,LastModified,CodeSha256]' --output text
