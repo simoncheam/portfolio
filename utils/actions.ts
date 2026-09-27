@@ -1,6 +1,5 @@
 'use server';
-import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda"; //!
-import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
+import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 
 
 interface LambdaResponse {
@@ -34,39 +33,8 @@ const logError = (error: unknown, context: string) => {
   });
 };
 
-
-async function testIAMRole() {
-  try {
-    const credentials = await fromNodeProviderChain()();
-    console.log("IAM Role Credentials:", credentials);
-  } catch (error) {
-    console.error("IAM Role Error:", error);
-  }
-}
-
-
-// Verify environment variables are set
-// 'AWS_ACCESS_KEY_ID',
-// 'AWS_SECRET_ACCESS_KEY',
-// const verifyEnvironment = () => {
-//   const requiredVars = [
-//     'AWS_REGION',
-//     'LAMBDA_FUNCTION_ARN'
-//   ];
-
-//   const missingVars = requiredVars.filter(varName => !process.env[varName]);
-
-//   if (missingVars.length > 0) {
-//     throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
-//   }
-// };
-
-
-// credentials: {
-//   accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-// },
-
+// Credentials are resolved by the SDK's default chain from the Amplify compute
+// role at runtime. Do not pass static keys here.
 const lambdaClient = new LambdaClient({
   region: process.env.AWS_REGION || "us-east-1",
   maxAttempts: 3,
@@ -77,34 +45,20 @@ const LAMBDA_TIMEOUT = 15000;
 
 export async function sendMessage(formData: ContactFormData, recaptchaToken: string): Promise<{ success: boolean; message: string }> {
   try {
-    testIAMRole();
-    // logEnvironmentCheck();
-    // verifyEnvironment();
-
-    console.log('Environment check:', {
-      NODE_ENV: process.env.NODE_ENV,
-      AWS_REGION: process.env.AWS_REGION,
-      LAMBDA_FUNCTION_ARN: process.env.LAMBDA_FUNCTION_ARN,
-      AWS_EXECUTION_ENV: process.env.AWS_EXECUTION_ENV,
-      AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID ? "Exists" : "Missing",
-      AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY ? "Exists" : "Missing",
-    });
-
-    console.log('Starting sendMessage with form data:', {
-      name: formData.name,
-      email: formData.email,
+    // Log shape only: no submitter PII, no credentials.
+    console.log('sendMessage: start', {
       messageLength: formData.message.length,
-      hasRecaptchaToken: !!recaptchaToken
+      hasPhone: !!formData.phone,
+      hasRecaptchaToken: !!recaptchaToken,
     });
 
-
-
-    // Log the Lambda ARN being used for debugging
     const functionArn = process.env.LAMBDA_FUNCTION_ARN;
-    console.log('Using Lambda ARN:', functionArn ? `...${functionArn.slice(-8)}` : 'undefined');
+    if (!functionArn) {
+      throw new Error('Missing required environment variables: LAMBDA_FUNCTION_ARN');
+    }
 
     const lambdaCommand = new InvokeCommand({
-      FunctionName: functionArn!,
+      FunctionName: functionArn,
       Payload: JSON.stringify({
         name: formData.name,
         email: formData.email,
@@ -115,7 +69,7 @@ export async function sendMessage(formData: ContactFormData, recaptchaToken: str
       LogType: 'Tail'
     });
 
-    console.log('Invoking Lambda with FunctionName:', process.env.LAMBDA_FUNCTION_ARN);
+    console.log('sendMessage: invoking Lambda', `...${functionArn.slice(-8)}`);
 
     // Race between Lambda invocation and timeout
     const response = await Promise.race([

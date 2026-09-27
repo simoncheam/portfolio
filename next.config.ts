@@ -7,12 +7,12 @@ const nextConfig: NextConfig = {
     // 90 is used by the priority hero avatar in components/hero.tsx.
     qualities: [75, 90],
   },
+  // Non-secret values the server action needs. AWS credentials come from the
+  // Amplify compute role at runtime and must never be listed here: this block
+  // is inlined into the build output.
   env: {
     AWS_REGION: process.env.AWS_REGION,
     LAMBDA_FUNCTION_ARN: process.env.LAMBDA_FUNCTION_ARN,
-    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
-    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
-
   },
 };
 

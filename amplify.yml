@@ -3,13 +3,6 @@ frontend:
   phases:
     preBuild:
       commands:
-        - echo "==== STARTING BUILD PROCESS WITH ENVIRONMENT DEBUGGING ===="
-        - echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}"
-        - echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}"
-        - echo "Creating runtime config file..."
-        - touch amplify-runtime-config.sh
-        - echo "Current environment variables (filtered sensitive data)"
-        - printenv | grep -v -E '(KEY|SECRET|PASSWORD|TOKEN)' | sort
         # Next.js 16 requires Node >=20.9.0; pin so the build image can't drift below it.
         - nvm install 22 && nvm use 22
         - 'echo "NODE_VERSION (pinned): $(node -v)"'
@@ -17,59 +10,19 @@ frontend:
 
     build:
       commands:
-        - echo "==== BUILD PHASE STARTED at $(date) ==="
-        - 'echo "NODE_ENV: ${NODE_ENV:-MISSING}"'
-        - 'echo "NODE_VERSION: $(node -v)"'
-        - 'echo "NPM_VERSION: $(npm -v)"'
-
-        - 'echo "DEBUG - AWS_ACCESS_KEY_ID before writing: ${AWS_ACCESS_KEY_ID:-MISSING}"'
-        - 'echo "DEBUG - AWS_SECRET_ACCESS_KEY before writing: ${AWS_SECRET_ACCESS_KEY:-MISSING}"'
-
-        - echo "# Runtime environment configuration - Generated $(date)" > amplify-runtime-config.sh
-        - echo "echo 'Loading runtime environment variables...'" >> amplify-runtime-config.sh
-
-        - echo "export AWS_ACCESS_KEY_ID=\"${AWS_ACCESS_KEY_ID}\"" >> amplify-runtime-config.sh
-        - echo "export AWS_SECRET_ACCESS_KEY=\"${AWS_SECRET_ACCESS_KEY}\"" >> amplify-runtime-config.sh
-        - echo "export AWS_REGION=\"${AWS_REGION}\"" >> amplify-runtime-config.sh
-        - echo "export LAMBDA_FUNCTION_ARN=\"${LAMBDA_FUNCTION_ARN}\"" >> amplify-runtime-config.sh
-        - echo "export ADMIN_USER_ID=\"${ADMIN_USER_ID}\"" >> amplify-runtime-config.sh
-
-        - echo "export NODE_ENV=\"${NODE_ENV}\"" >> amplify-runtime-config.sh
-
-        - echo "==== RUNTIME CONFIG CONTENTS ===="
-        - cat amplify-runtime-config.sh
-        - echo "=================================="
-
-        - 'echo "DEBUG - ADMIN_USER_ID before sourcing: ${ADMIN_USER_ID:-MISSING}"'
-        - 'echo "DEBUG - AWS_ACCESS_KEY_ID before sourcing: ${AWS_ACCESS_KEY_ID:-MISSING}"'
-        - 'echo "DEBUG - AWS_SECRET_ACCESS_KEY before sourcing: ${AWS_SECRET_ACCESS_KEY:-MISSING}"'
-
-        - chmod +x amplify-runtime-config.sh
-        - source amplify-runtime-config.sh
-
-        - 'echo "VERIFICATION - AWS_REGION: ${AWS_REGION:-MISSING}"'
-        - 'echo "VERIFICATION - LAMBDA_FUNCTION_ARN: ${LAMBDA_FUNCTION_ARN:-MISSING}"'
-        - 'echo "VERIFICATION - ADMIN_USER_ID: ${ADMIN_USER_ID:-MISSING}"'
-        - 'echo "VERIFICATION - AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-MISSING}"'
-        - 'echo "VERIFICATION - AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-MISSING}"'
-
-        - echo "# Next.js environment variables - Generated $(date)" > .env.production
+        # Amplify does not expose console environment variables to the SSR runtime.
+        # Write the non-secret ones the server action needs into .env.production.
+        # AWS credentials come from the app's compute role; never write keys here.
+        - echo "# Generated at build $(date)" > .env.production
         - echo "AWS_REGION=${AWS_REGION}" >> .env.production
         - echo "LAMBDA_FUNCTION_ARN=${LAMBDA_FUNCTION_ARN}" >> .env.production
-        - echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" >> .env.production
-        - echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" >> .env.production
         - echo "ADMIN_USER_ID=${ADMIN_USER_ID}" >> .env.production
-        - env | grep -e AWS_ACCESS_KEY -e AWS_SECRET_ACCESS >> .env.production
-
-        - echo "==== STARTING NEXT.JS BUILD ===="
         - npm run build
-        - echo "==== BUILD COMPLETED ===="
 
   artifacts:
     baseDirectory: .next
     files:
       - '**/*'
-      - '../amplify-runtime-config.sh'
       - '../.env.production'
   customHeaders:
     - pattern: '**/*'
