@@ -55,7 +55,7 @@ This website serves as my professional portfolio, showcasing my development proj
 ### Backend
 
 - **AWS Amplify Hosting**: builds and serves the site; runs the Next.js server-side code under an IAM compute role
-- **AWS Lambda**: `portfolio-contact-form-handler`, invoked directly by the site's server action (source in `infrastructure/lambda/`)
+- **AWS Lambda**: `portfolio-contact-form-handler`, invoked directly by the site's server action through the AWS SDK's Invoke API. No Function URL and no API Gateway. Source in `infrastructure/lambda/`.
 - **Amazon SES**: called by the Lambda to send the email
 - **AWS SDK in the site**: `@aws-sdk/client-lambda` only. SES is called from the Lambda, not from the site.
 
