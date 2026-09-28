@@ -1,11 +1,13 @@
 # Portfolio Website
 
-A modern, responsive portfolio website built with Next.js, React, and AWS serverless infrastructure.
+A responsive portfolio site built with Next.js and React, hosted on AWS Amplify, with a serverless contact form that invokes a Lambda function to send email through Amazon SES.
 
-[![Next.js](https://img.shields.io/badge/Next.js-15.1.3-black)](https://nextjs.org)
-[![React](https://img.shields.io/badge/React-18.2.0-blue)](https://reactjs.org)
+**Status:** Live at [simoncheam.dev](https://www.simoncheam.dev) (verified 2026-09-27).
+
+[![Next.js](https://img.shields.io/badge/Next.js-16.3.0-black)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-18.2-blue)](https://reactjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4.1-38B2AC)](https://tailwindcss.com)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-38B2AC)](https://tailwindcss.com)
 [![AWS](https://img.shields.io/badge/AWS-Amplify%20%7C%20Lambda%20%7C%20SES-FF9900)](https://aws.amazon.com)
 
 ## Table of Contents
@@ -31,35 +33,31 @@ This website serves as my professional portfolio, showcasing my development proj
 
 ### Frontend
 
-- **Framework**: Next.js 15.1.3
-- **UI Library**: React 18.2.0
+- **Framework**: Next.js 16.3.0 (App Router, server actions)
+- **UI Library**: React 18.2
 - **Type Safety**: TypeScript 5
 - **Styling**:
-  - TailwindCSS 3.4.1
-  - Shadcn UI components (built on Radix UI)
-  - CSS Animations (tailwindcss-animate)
+  - TailwindCSS 3.4
+  - shadcn/ui components (built on Radix UI)
+  - CSS animations (tailwindcss-animate)
 - **Theme Management**: next-themes
 - **Form Handling**:
-  - react-hook-form 7.54.2
-  - zod 3.24.2 (validation)
-  - @hookform/resolvers 4.1.0
+  - react-hook-form 7.54
+  - zod 3.24 (validation)
+  - @hookform/resolvers 4.1
 - **UI Components**:
   - Radix UI primitives
   - sonner (toast notifications)
   - lucide-react (icons)
   - react-rough-notation (highlighting effects)
-- **Security**: react-google-recaptcha 3.1.0
+- **Bot protection**: react-google-recaptcha 3.1
 
 ### Backend
 
-- **AWS Services**:
-  - AWS Amplify (hosting/deployment)
-  - AWS Lambda (serverless functions)
-  - AWS SES (email service)
-- **AWS SDK**:
-  - @aws-sdk/client-lambda
-  - @aws-sdk/client-ses
-  - @aws-sdk/credential-providers
+- **AWS Amplify Hosting**: builds and serves the site; runs the Next.js server-side code under an IAM compute role
+- **AWS Lambda**: `portfolio-contact-form-handler`, invoked directly by the site's server action (source in `infrastructure/lambda/`)
+- **Amazon SES**: called by the Lambda to send the email
+- **AWS SDK in the site**: `@aws-sdk/client-lambda` only. SES is called from the Lambda, not from the site.
 
 ## Features
 
@@ -70,39 +68,33 @@ This website serves as my professional portfolio, showcasing my development proj
 - **Contact Form**: Serverless form processing with validation and reCAPTCHA
 - **Certifications Display**: Professional certifications section
 - **Testimonials**: Social proof from colleagues and clients
-- **AWS Integration**: Serverless backend for form processing
 
 ## Project Structure
 
 ```
 portfolio/
-├── app/                # Next.js App Router
-│   ├── api/            # API routes
-│   ├── layout.tsx      # Root layout
-│   └── page.tsx        # Main page
-├── components/         # UI components
-│   ├── ui/             # Reusable UI components
-│   ├── hero.tsx        # Hero section
-│   ├── about.tsx       # About section
-│   ├── projects.tsx    # Projects section
-│   ├── tech-stack.tsx  # Tech stack section
-│   ├── experience.tsx  # Experience section
-│   ├── contact-form.tsx # Contact form
-│   └── ...
-├── lib/                # Utility libraries
-├── public/             # Static assets
-│   └── images/         # Images and icons
-└── utils/              # Utility functions
-    └── actions.ts      # Server actions
+├── app/                      # Next.js App Router: layout, page, metadata routes
+├── components/               # UI components
+│   ├── ui/                   # Reusable UI primitives
+│   ├── hero.tsx, about.tsx, projects.tsx, tech-stack.tsx, experience.tsx, ...
+│   └── contact-form.tsx      # Contact form (calls the server action)
+├── lib/                      # Utility libraries
+├── public/images/            # Static assets
+├── utils/actions.ts          # Server action: invokes the contact-form Lambda
+├── infrastructure/lambda/    # Lambda source, deploy record, and test scripts
+├── .github/workflows/        # OIDC workflow that redeploys the Lambda
+├── amplify.yml               # Amplify build spec
+├── proxy.ts                  # Next.js middleware
+└── docs/images/              # Architecture diagram
 ```
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18.17.0 or later
-- npm or yarn
-- AWS account (for backend functionality)
+- Node.js 22 (Next.js 16 requires 20.9 or later; the Amplify build pins 22)
+- npm
+- For the contact form locally: an AWS CLI profile whose identity can invoke the contact-form Lambda
 
 ### Installation
 
@@ -129,53 +121,56 @@ portfolio/
 
 ### Environment Variables
 
-Create a `.env.local` file with the following variables:
+The site reads three variables. Create a `.env.local` file for local development:
 
 ```
 AWS_REGION=us-east-1
-LAMBDA_FUNCTION_ARN=arn:aws:lambda:[region]:[account]:function:[function-name]
-AWS_ACCESS_KEY_ID=your-access-key
-AWS_SECRET_ACCESS_KEY=your-secret-key
+LAMBDA_FUNCTION_ARN=arn:aws:lambda:[region]:[account]:function:portfolio-contact-form-handler
 NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your-recaptcha-site-key
 ```
 
+No AWS access keys go in any file. Locally, the AWS SDK uses your CLI credentials. In production, it uses the Amplify compute role.
+
 ## Deployment
 
-This project is configured for deployment using AWS Amplify:
+**Site.** Pushing to `main` triggers an Amplify build from `amplify.yml`:
 
-1. The CI/CD pipeline is configured in `amplify.yml`
-2. Environment variables are injected during the build process
-3. Runtime configuration for AWS credentials is handled by `amplify-runtime-config.sh`
+1. Amplify pins Node 22, runs `npm ci`, writes the non-secret variables (`AWS_REGION`, `LAMBDA_FUNCTION_ARN`) to `.env.production`, and runs `next build`.
+2. The `.next` output and `.env.production` are deployed as the artifact.
+3. Server-side code runs under `portfolio-amplify-compute-role`, whose only permission is to invoke the contact-form Lambda. No static credentials exist in the build, the artifact, or the runtime.
 
-The deployment process:
-
-1. Push changes to the main branch
-2. AWS Amplify automatically builds the Next.js application
-3. Assets are distributed via Amazon CloudFront
+**Lambda.** Pushing a change under `infrastructure/lambda/` to `main` triggers `.github/workflows/deploy-contact-form-lambda.yml`, which assumes an IAM role through GitHub OIDC, packages `index.js` with its dependencies, and runs `update-function-code`. The role can update this one function's code and nothing else.
 
 ## Infrastructure
 
-The backend infrastructure is managed as code using AWS CDK (Cloud Development Kit). The infrastructure is deployed using `cdk deploy`.
+The backend is small and was created with the AWS CLI, not with infrastructure as code. What exists:
 
-The infrastructure includes:
+| Resource | Purpose | Created by |
+|---|---|---|
+| Lambda `portfolio-contact-form-handler` (Node 18) | Verifies the reCAPTCHA token, sends the email via SES | `infrastructure/lambda/deploy.sh`, 2025-03-01 |
+| IAM role `portfolio-lambda-execution-role` | The Lambda's execution role (SES send, CloudWatch logs) | same script |
+| IAM role `portfolio-amplify-compute-role` | Amplify SSR compute role: invoke the Lambda only | AWS CLI, 2026-09-27 |
+| IAM role `portfolio-github-deploy-role` | GitHub OIDC role: update the Lambda's code only | AWS CLI, 2026-09-27 |
+| Amplify app | Hosting, build, and the compute role binding | Amplify console |
 
-- AWS Lambda function for processing contact form submissions
-- AWS SES for sending emails
-- IAM roles and policies for secure access
-- AWS CloudWatch for monitoring and logging
+Logs for both the Lambda and the server-side Next.js code are in CloudWatch. See [`infrastructure/lambda/README.md`](infrastructure/lambda/README.md) for the function's configuration and how to update it.
 
-The infrastructure code is available in a separate branch:
+**Known limitations**
 
-[https://github.com/simoncheam/portfolio/tree/infrastructure](https://github.com/simoncheam/portfolio/tree/infrastructure)
+- Not managed as code. The Lambda, its role, and the Amplify settings were created by CLI and console. An earlier CDK attempt is archived at the `archive/infrastructure-2025-03` tag; its only deployed resource has been removed.
+- The Lambda runs on `nodejs18.x`, which AWS deprecated in September 2025.
+- The Lambda's execution role uses `AmazonSESFullAccess` where a scoped `ses:SendEmail` would do.
+
+**Next steps**
+
+- A CDK stack under `infrastructure/` that imports the existing function and owns the roles and permissions, with the runtime moved to `nodejs22.x`.
 
 ## System Architecture
 
 ![NextJS Portfolio System Architecture](./docs/images/nextjs-portfolio-architecture.svg)
 
-This diagram illustrates how the Next.js frontend connects with AWS services to create a serverless contact form system.
+The Next.js frontend submits the form to a server action, which invokes the Lambda under the Amplify compute role; the Lambda verifies reCAPTCHA and sends the email through SES.
 
 ## Contact
 
 Simon Cheam - [LinkedIn](https://www.linkedin.com/in/simoncheam/) - [GitHub](https://github.com/simoncheam)
-
-<p align="right">(<a href="#top">back to top</a>)</p>

@@ -16,7 +16,6 @@ frontend:
         - echo "# Generated at build $(date)" > .env.production
         - echo "AWS_REGION=${AWS_REGION}" >> .env.production
         - echo "LAMBDA_FUNCTION_ARN=${LAMBDA_FUNCTION_ARN}" >> .env.production
-        - echo "ADMIN_USER_ID=${ADMIN_USER_ID}" >> .env.production
         - npm run build
 
   artifacts:

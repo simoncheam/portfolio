@@ -2,8 +2,8 @@
 
 Source for the `portfolio-contact-form-handler` function that the site's contact form invokes. It verifies the reCAPTCHA token and sends the message by email through Amazon SES.
 
-**Status:** Live (verified 2026-09-27). `index.js` is byte-for-byte the code deployed on the function.
-**Managed by:** AWS CLI (`deploy.sh`), not CDK. See Known limitations.
+**Status:** Live (verified 2026-09-27). `index.js` is the code deployed on the function; the deploy workflow below keeps it that way.
+**Managed by:** created with the AWS CLI (`deploy.sh`); code redeployed by GitHub Actions. Not CDK. See Known limitations.
 
 ## How it is invoked
 
@@ -39,6 +39,10 @@ There is no API Gateway. Amplify's SSR compute runs under the `portfolio-amplify
 
 ## Update the code
 
+Edit `index.js` and push to `main`. The workflow `.github/workflows/deploy-contact-form-lambda.yml` runs on any change under this folder: it assumes `portfolio-github-deploy-role` through GitHub OIDC, installs production dependencies, zips `index.js`, `package.json`, and `node_modules`, and calls `update-function-code`. The role can update this function's code and nothing else. The run's Verify step prints the new `LastModified` and `CodeSha256`.
+
+Manual fallback, with an AWS CLI profile that can update the function:
+
 ```bash
 cd infrastructure/lambda
 npm ci --omit=dev
@@ -47,15 +51,15 @@ aws lambda update-function-code --function-name portfolio-contact-form-handler -
 rm -rf lambda.zip node_modules
 ```
 
-Then submit the site's contact form and check `./view-logs.sh` for `Email sent successfully`.
+After either path, submit the site's contact form and check `./view-logs.sh` for `Email sent successfully`.
 
 ## Known limitations
 
-- **Not infrastructure as code.** The function, its role, and the SES permission were created by `deploy.sh` with the AWS CLI. The only CDK-managed resource is one `Lambda::Permission` in `PortfolioInfrastructureStack`, from the archived `infrastructure` branch.
+- **Not infrastructure as code.** The function and its role were created by `deploy.sh` with the AWS CLI. An earlier CDK attempt is archived at the `archive/infrastructure-2025-03` tag; its stack, which held a single invoke permission, was deleted on 2026-09-27.
 - **Deprecated runtime.** `nodejs18.x` reached end of support in September 2025. AWS still runs it but will block configuration updates on it.
 - **Over-broad execution role.** `AmazonSESFullAccess` where `ses:SendEmail` on one identity would do.
-- **No deployment pipeline.** Code updates are manual (see above).
-- **Resource policy carries leftovers.** Two `amplify.amazonaws.com` invoke statements and one for `ses.amazonaws.com` predate the compute role and are no longer needed.
+- **Code-only pipeline.** The workflow updates code. Runtime, memory, timeout, and environment variables are changed by hand in AWS.
+- **Resource policy carries leftovers.** One `amplify.amazonaws.com` invoke statement and one for `ses.amazonaws.com` predate the compute role and are no longer needed. SES never invokes this function.
 
 ## Next steps
 
