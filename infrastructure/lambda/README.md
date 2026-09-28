@@ -63,6 +63,4 @@ After either path, submit the site's contact form and check `./view-logs.sh` for
 
 ## Next steps
 
-- Move the function, role, and permissions into a CDK stack under `infrastructure/`, importing the existing function so nothing is recreated.
-- Upgrade the runtime to `nodejs22.x` as part of that move.
-- Replace `AmazonSESFullAccess` with a scoped `ses:SendEmail` policy.
+See [`../CDK-MIGRATION.md`](../CDK-MIGRATION.md): move the function, roles, and permissions into a CDK stack, upgrade the runtime to `nodejs22.x`, and replace `AmazonSESFullAccess` with a scoped `ses:SendEmail` policy.

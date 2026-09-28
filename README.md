@@ -163,7 +163,7 @@ Logs for both the Lambda and the server-side Next.js code are in CloudWatch. See
 
 **Next steps**
 
-- A CDK stack under `infrastructure/` that imports the existing function and owns the roles and permissions, with the runtime moved to `nodejs22.x`.
+- Move the backend into a CDK stack under `infrastructure/`, with the runtime on `nodejs22.x` and scoped roles. Gaps and plan: [`infrastructure/CDK-MIGRATION.md`](infrastructure/CDK-MIGRATION.md).
 
 ## System Architecture
 
