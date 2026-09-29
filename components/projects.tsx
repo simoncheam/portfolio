@@ -17,8 +17,8 @@ const projects: Project[] = [
   {
     title: 'Cost-Optimized RAG Chatbot',
     description:
-      'RAG portfolio assistant tuned for enterprise-grade performance',
-    metric: '$4,200/yr AWS cost savings',
+      'RAG portfolio assistant: Titan embeddings, OpenSearch k-NN with cosine re-ranking, Claude Haiku 4.5, JWT-verified API route',
+    metric: '$350/mo → ~$30/mo (~$3,900/yr)',
     imgUrl: '/images/rag-ai-portfolio-thumbnail.png',
     techStack: ['AWS Bedrock', 'OpenSearch', 'Lambda', 'Next.js 15', 'TypeScript', 'AWS CDK', 'DynamoDB', 'Cognito'],
     liveUrl: 'https://ai-portfolio-chatbot.vercel.app',
@@ -28,7 +28,7 @@ const projects: Project[] = [
     title: 'Local Business Subscription Platform',
     description:
       'Subscription platform connecting members with local businesses',
-    metric: '90% less operational overhead',
+    metric: 'Automated Stripe subscription billing',
     imgUrl: '/images/membership-platform.png',
     techStack: ['Next.js 14', 'PostgreSQL', 'Prisma', 'Clerk', 'Stripe', 'Vercel', 'Supabase', 'TypeScript'],
     liveUrl: 'https://pinellas-perks-mvp.vercel.app/',
@@ -38,10 +38,9 @@ const projects: Project[] = [
   {
     title: 'Serverless Portfolio Website',
     description:
-      'Responsive portfolio with serverless contact forms and a reusable template architecture',
-    metric: '50%+ faster project setup',
+      'Responsive portfolio with a serverless contact form on Lambda and SES; hosted on Amplify, Lambda deployed by GitHub Actions with OIDC',
     imgUrl: '/images/portfolio-aws.png',
-    techStack: ['Next.js', 'AWS Lambda', 'SES', 'CDK', 'Amplify', 'GitHub Actions'],
+    techStack: ['Next.js', 'AWS Lambda', 'SES', 'Amplify', 'GitHub Actions'],
     githubUrl: 'https://github.com/simoncheam/portfolio',
     liveUrl: 'https://www.simoncheam.dev',
   },

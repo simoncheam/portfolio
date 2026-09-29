@@ -16,7 +16,7 @@ const About = () => {
     },
     {
       emoji: '👨‍💼',
-      text: 'Over 10+ years of product development and project engineering experience',
+      text: '14 years of engineering experience, 6 of them in software',
     },
     {
       emoji: '🛠️',

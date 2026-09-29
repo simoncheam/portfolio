@@ -23,7 +23,7 @@ const experiences: ExperienceItem[] = [
     responsibilities: [
       "Built the team's Claude Code standards repository — reusable commands, skills, and workflows that made AI-assisted development a shared, reviewable practice",
       "Migrated a legacy merchant module from Ember to a React and TypeScript micro-frontend on single-spa, cutting technical debt with a zero-downtime, feature-flagged rollout",
-      "Built core screens of the self-service online ordering flow with our designer, part of a redesign that contributed to a sustained 44% lift in monthly app installs",
+      "Built core screens of the self-service online ordering flow with our designer, part of a redesign that contributed to a 44% lift in monthly app installs",
       "Localized onboarding, pricing, and merchant education for the UK, Ireland, and Spain, gated behind feature flags for European expansion",
       "Delivered full-stack: onboarding and platform features, merchant email integrations, and Node.js APIs, plus production support that unblocked merchants",
     ],
@@ -34,16 +34,14 @@ const experiences: ExperienceItem[] = [
     period: "01/2021 - Present",
     location: "Remote",
     responsibilities: [
-      "Built AI-enabled applications with modern frameworks, databases, and AWS cloud services",
       "Streamlined project delivery through AI-assisted spec generation and modular development workflows",
-      "Developed Serverless RAG chatbot with AWS Bedrock, including hallucination safeguards and cost-optimization",
     ],
     keyClient: {
       name: "Jemini.io",
       period: "08/2023 - 08/2024",
       achievements: [
-        "Led discovery workshops to uncover bottlenecks, aligning dev roadmap with business goals — directly increased client acquisition via optimized content ops",
-        "Built a custom React-based process inspection dashboard, reduced inspection time by ~30%",
+        "Led discovery workshops to uncover bottlenecks, aligning dev roadmap with business goals — increased client acquisition via optimized content ops",
+        "Built a custom React-based process inspection dashboard, reduced manufacturing inspection time by ~30%",
         "Enhanced client and development efficiency through AI-based tools and workflows",
       ],
     },
